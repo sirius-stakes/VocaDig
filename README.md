@@ -7,6 +7,14 @@
 
 ## 現在のステータス
 
+**Phase 2: 検索・レコメンドエンジン × メインUI** 完了
+
+- ライト／ダークモード切替（`html.dark`・`localStorage`・OS設定追従）
+- 条件ディグ（Filter Dig）: キーワード、タグAND/OR、BPMレンジ、音声ライブラリ、6種の並び替え
+- 好きな曲から推薦（Like-to-Dig）: タグ重み（共通タグは2.5倍）・BPM近接・音声ライブラリ一致ボーナス
+- VocaDBリアルタイム検索: 600msデバウンス＋メモリキャッシュでレート制限に配慮
+- マイリスト（`localStorage` 保存）、URLパラメータとの検索条件同期、モバイルドロワー対応
+
 **Phase 1: データ基盤** 完了
 
 - VocaSong 型・マスターデータ（音声ライブラリ / キュレーションタグ / ストップワード）
@@ -46,15 +54,47 @@ npm run build
 
 ```text
 src/
-  constants/masterData.ts   # 音声ライブラリ・キュレーションタグ・ストップワード
-  types/song.ts             # 共有型（VocaSong など）
-  utils/vocadbMapper.ts     # VocaDB → VocaSong 正規化
-  App.tsx                   # Phase 1 ダッシュボード
+  components/
+    Header.tsx                 # ロゴ・モードタブ・マイリスト・テーマ切替
+    FilterSidebar.tsx          # タグ / BPM / 音声ライブラリの条件検索
+    SeedRecommendSidebar.tsx   # シード検索・VocaDB検索・好みプロファイル
+    SongCard.tsx               # 楽曲カード（マッチ度・一致タグ表示）
+    MyListDrawer.tsx           # マイリストドロワー
+  hooks/
+    useTheme.ts                # ライト／ダークモード管理
+    useSongCatalog.ts          # songs.json 読み込み
+    useMyList.ts               # マイリスト永続化
+  constants/
+    masterData.ts              # 音声ライブラリ・キュレーションタグ・ストップワード
+    search.ts                  # 検索初期値・並び替え定義
+  types/song.ts                # 共有型（VocaSong など）
+  utils/
+    vocadbMapper.ts            # VocaDB → VocaSong 正規化
+    vocadbApi.ts               # 600msデバウンス＋キャッシュ付きリアルタイム検索
+    recommendEngine.ts         # フィルタリング・類似度スコアリング
+    urlState.ts                # URLパラメータ同期
+    format.ts                  # 表示フォーマット
+  App.tsx                      # 全体状態管理・2カラムレイアウト
 scripts/
-  fetch-vocadb.ts           # 事前データ取得スクリプト
+  fetch-vocadb.ts              # 事前データ取得スクリプト
 public/data/
-  songs.json                # 生成済み初期データ
+  songs.json                   # 生成済み初期データ
 ```
+
+## 検索条件のURLパラメータ
+
+検索条件はURLに同期されます（履歴は増やしません）。
+
+| パラメータ | 内容 | 例 |
+| --- | --- | --- |
+| `mode` | 表示モード | `similar` |
+| `q` | キーワード | `wowaka` |
+| `tags` | タグ（カンマ区切り） | `rock,melancholic` |
+| `tagMode` | タグの一致条件 | `and` |
+| `voicebanks` | 音声ライブラリID | `1,3` |
+| `bpmMin` / `bpmMax` | BPMレンジ | `120` / `200` |
+| `unknownBpm` | BPM未登録曲を含めない場合 `0` | `0` |
+| `sort` | 並び順 | `hidden_gem` |
 
 ## データ出典
 
