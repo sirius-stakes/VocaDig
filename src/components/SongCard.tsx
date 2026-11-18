@@ -16,8 +16,10 @@ interface SongCardProps {
   match?: { score: number; matchedTags: string[] };
   isSeed: boolean;
   isInMyList: boolean;
+  isPlaying?: boolean;
   onAddSeed: (song: VocaSong) => void;
   onToggleMyList: (song: VocaSong) => void;
+  onPlay: (song: VocaSong) => void;
 }
 
 export function SongCard({
@@ -25,8 +27,10 @@ export function SongCard({
   match,
   isSeed,
   isInMyList,
+  isPlaying = false,
   onAddSeed,
   onToggleMyList,
+  onPlay,
 }: SongCardProps) {
   const [imageFailed, setImageFailed] = useState(false);
 
@@ -159,15 +163,20 @@ export function SongCard({
 
         <div className="mt-auto flex flex-wrap items-center gap-1.5 pt-3">
           {primaryPv ? (
-            <a
-              href={primaryPv.url}
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-1.5 rounded-lg bg-cyan-500 px-2.5 py-1.5 text-[11px] font-black text-white shadow-sm shadow-cyan-500/20 transition hover:bg-cyan-600"
+            <button
+              type="button"
+              onClick={() => onPlay(song)}
+              aria-label={`${song.title}を試聴`}
+              aria-pressed={isPlaying}
+              className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[11px] font-black shadow-sm transition ${
+                isPlaying
+                  ? 'bg-teal-500 text-white shadow-teal-500/25 hover:bg-teal-600'
+                  : 'bg-cyan-500 text-white shadow-cyan-500/20 hover:bg-cyan-600'
+              }`}
             >
               <PlayIcon className="h-3 w-3" />
-              試聴
-            </a>
+              {isPlaying ? '再生中' : '試聴'}
+            </button>
           ) : (
             <span className="flex items-center gap-1.5 rounded-lg bg-slate-100 px-2.5 py-1.5 text-[11px] font-bold text-slate-400 dark:bg-slate-800 dark:text-slate-500">
               <PlayIcon className="h-3 w-3" />

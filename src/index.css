@@ -97,3 +97,25 @@ aside {
   scrollbar-width: thin;
   scrollbar-color: rgb(148 163 184 / 0.5) transparent;
 }
+
+/* ミニプレイヤーのスライドイン */
+@keyframes mini-player-slide-in {
+  from {
+    transform: translateY(110%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-mini-player-in {
+  animation: mini-player-slide-in 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-mini-player-in {
+    animation: none;
+  }
+}

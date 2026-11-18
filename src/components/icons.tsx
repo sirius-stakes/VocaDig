@@ -163,3 +163,29 @@ export function ChevronDownIcon(props: IconProps) {
     </Svg>
   );
 }
+
+export function ChevronUpIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="m6 15 6-6 6 6" />
+    </Svg>
+  );
+}
+
+export function CopyIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <rect x="9" y="9" width="11" height="11" rx="2" />
+      <path d="M15 9V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h4" />
+    </Svg>
+  );
+}
+
+export function DownloadIcon(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M12 4v10m0 0 4-4m-4 4-4-4" />
+      <path d="M5 18v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1" />
+    </Svg>
+  );
+}

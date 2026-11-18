@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { FilterSidebar } from './components/FilterSidebar';
 import { Header } from './components/Header';
-import { MyListDrawer } from './components/MyListDrawer';
+import { MiniPlayer } from './components/MiniPlayer';
+import { MyListModal } from './components/MyListModal';
 import { SeedRecommendSidebar } from './components/SeedRecommendSidebar';
 import { SongCard } from './components/SongCard';
 import {
@@ -70,6 +71,7 @@ function App() {
   const [voicebankBonus, setVoicebankBonus] = useState(true);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [myListOpen, setMyListOpen] = useState(false);
+  const [playerSong, setPlayerSong] = useState<VocaSong | null>(null);
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
   useEffect(() => {
@@ -147,6 +149,28 @@ function App() {
   const handleClearSeeds = useCallback(() => {
     setSeeds([]);
   }, []);
+
+  const handlePlay = useCallback((song: VocaSong) => {
+    setPlayerSong(song);
+  }, []);
+
+  const handleClosePlayer = useCallback(() => {
+    setPlayerSong(null);
+  }, []);
+
+  /** マイリスト内の曲をまとめてシードに追加し、類似レコメンドへ移行する */
+  const handleSeedMyList = useCallback(() => {
+    setSeeds((current) => {
+      const merged = new Map(current.map((song) => [song.id, song]));
+      for (const song of myList) {
+        if (!merged.has(song.id)) merged.set(song.id, song);
+      }
+      return [...merged.values()];
+    });
+    setMode('similar_recommend');
+    setMobileSidebarOpen(false);
+    setMyListOpen(false);
+  }, [myList]);
 
   const handleChangeMode = useCallback((nextMode: AppMode) => {
     setMode(nextMode);
@@ -454,8 +478,10 @@ function App() {
                       }
                       isSeed={isSeed(song.id)}
                       isInMyList={isInMyList(song.id)}
+                      isPlaying={playerSong?.id === song.id}
                       onAddSeed={handleAddSeed}
                       onToggleMyList={toggleMyList}
+                      onPlay={handlePlay}
                     />
                   );
                 })}
@@ -479,18 +505,32 @@ function App() {
 
       <footer className="border-t border-slate-200 py-6 dark:border-slate-800">
         <div className="mx-auto flex max-w-7xl flex-col gap-1 px-4 text-xs text-slate-500 dark:text-slate-400 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-          <p>VocaDig — Phase 2: Filter Dig × Like-to-Dig</p>
+          <p>VocaDig — Phase 3: Mini Player × MyList Share</p>
           <p>データ出典: VocaDB (https://vocadb.net)</p>
         </div>
       </footer>
 
-      <MyListDrawer
+      <MiniPlayer
+        song={playerSong}
+        isSeed={playerSong ? isSeed(playerSong.id) : false}
+        isInMyList={playerSong ? isInMyList(playerSong.id) : false}
+        onClose={handleClosePlayer}
+        onAddSeed={handleAddSeed}
+        onToggleMyList={toggleMyList}
+      />
+
+      <MyListModal
         open={myListOpen}
         songs={myList}
         isSeed={isSeed}
         onClose={() => setMyListOpen(false)}
         onRemove={removeFromMyList}
         onAddSeed={handleAddSeed}
+        onPlay={(song) => {
+          handlePlay(song);
+          setMyListOpen(false);
+        }}
+        onSeedAll={handleSeedMyList}
         onClear={clearMyList}
       />
     </div>
