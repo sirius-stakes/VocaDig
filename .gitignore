@@ -1,0 +1,10 @@
+node_modules
+dist
+dist-ssr
+
+# VocaDB取得キャッシュ・ローカルツールチェーン
+.cache/
+
+*.local
+*.log
+.DS_Store
