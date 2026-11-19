@@ -38,8 +38,9 @@
 
   /*
    * 透明感トークン（ライトモード）
-   * ベタ塗りを避け、12〜22%の淡い透過背景と35〜55%の透過ボーダーで
+   * ベタ塗りを避け、10〜22%の淡い透過背景と35〜55%の透過ボーダーで
    * ガラス越しにテーマカラーが滲む質感をつくる。
+   * 外側へ広がるカラーグローは使わず、内側ハイライトと1pxの枠線で輪郭を描く。
    */
   --accent-bg-subtle: color-mix(in srgb, var(--accent-base) 10%, transparent);
   --accent-bg-soft: color-mix(in srgb, var(--accent-base) 15%, transparent);
@@ -52,14 +53,38 @@
   );
   /* ライトモードは視認性優先の濃いトーン */
   --accent-text: var(--accent-800);
-  --accent-glow: color-mix(in srgb, var(--accent-base) 12%, transparent);
   --accent-ring: color-mix(in srgb, var(--accent-base) 30%, transparent);
+
+  /*
+   * クリアアクリルトークン（主役ボタン専用）
+   * 84%透明度の引き締まったアクリル板に、半透明白の1px枠線と
+   * 内側ハイライトを重ねる。外側のぼかし発光シャドウは存在しない。
+   */
+  --accent-acrylic-tone: color-mix(
+    in srgb,
+    var(--accent-base) 82%,
+    var(--accent-950)
+  );
+  --accent-acrylic-fill: color-mix(
+    in srgb,
+    var(--accent-acrylic-tone) 84%,
+    transparent
+  );
+  --accent-acrylic-fill-hover: color-mix(
+    in srgb,
+    var(--accent-sub) 88%,
+    transparent
+  );
+  --accent-acrylic-border: rgb(255 255 255 / 0.28);
+  --accent-acrylic-border-hover: rgb(255 255 255 / 0.4);
+  --accent-acrylic-hairline: rgb(15 23 42 / 0.1);
+  --accent-acrylic-highlight: inset 0 1px 0 rgb(255 255 255 / 0.26);
 
   /* 既存コンポーネントとの互換エイリアス */
   --accent-soft: var(--accent-bg-soft);
   --accent-soft-strong: var(--accent-bg-active);
   --accent-border-soft: var(--accent-border);
-  --accent-shadow: var(--accent-glow);
+  --accent-shadow: rgb(15 23 42 / 0.12);
 
   --accent-gradient: linear-gradient(
     120deg,
@@ -262,8 +287,24 @@ html.dark {
     transparent
   );
   --accent-text: var(--accent-300);
-  --accent-glow: color-mix(in srgb, var(--accent-400) 18%, transparent);
   --accent-ring: color-mix(in srgb, var(--accent-400) 30%, transparent);
+
+  /* ダークモードのアクリル板は白文字が沈まないようやや深いトーンにする */
+  --accent-acrylic-tone: color-mix(in srgb, var(--accent-600) 88%, #020617);
+  --accent-acrylic-fill: color-mix(
+    in srgb,
+    var(--accent-acrylic-tone) 84%,
+    transparent
+  );
+  --accent-acrylic-fill-hover: color-mix(
+    in srgb,
+    var(--accent-500) 86%,
+    #020617
+  );
+  --accent-acrylic-border: rgb(255 255 255 / 0.24);
+  --accent-acrylic-border-hover: rgb(255 255 255 / 0.36);
+  --accent-acrylic-hairline: rgb(0 0 0 / 0.35);
+  --accent-acrylic-highlight: inset 0 1px 0 rgb(255 255 255 / 0.18);
 
   --accent-gradient: linear-gradient(
     120deg,
@@ -297,7 +338,7 @@ html.dark {
 }
 
 @utility tint-shadow {
-  --tw-shadow-color: var(--accent-glow);
+  --tw-shadow-color: var(--accent-shadow);
 }
 
 /*
@@ -338,8 +379,7 @@ html.dark {
     border-color: var(--accent-border);
     box-shadow:
       0 1px 1px rgb(15 23 42 / 0.03),
-      0 14px 34px -24px var(--accent-glow),
-      0 0 22px -12px var(--accent-glow);
+      0 14px 30px -24px rgb(15 23 42 / 0.26);
   }
 
   .glass-accent-chip {
@@ -348,9 +388,7 @@ html.dark {
     color: var(--accent-text);
     backdrop-filter: blur(10px) saturate(135%);
     -webkit-backdrop-filter: blur(10px) saturate(135%);
-    box-shadow:
-      inset 0 1px 0 rgb(255 255 255 / 0.12),
-      0 0 14px -6px var(--accent-glow);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.14);
   }
 
   .glass-accent-button {
@@ -359,9 +397,7 @@ html.dark {
     color: var(--accent-text);
     backdrop-filter: blur(10px) saturate(135%);
     -webkit-backdrop-filter: blur(10px) saturate(135%);
-    box-shadow:
-      inset 0 1px 0 rgb(255 255 255 / 0.12),
-      0 0 16px -7px var(--accent-glow);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.14);
     transition:
       background-color 0.18s ease,
       border-color 0.18s ease,
@@ -372,9 +408,7 @@ html.dark {
   .glass-accent-button:hover {
     background-color: var(--accent-bg-active);
     border-color: var(--accent-border-strong);
-    box-shadow:
-      inset 0 1px 0 rgb(255 255 255 / 0.16),
-      0 0 22px -5px var(--accent-glow);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.2);
   }
 
   .glass-accent-button:disabled {
@@ -388,9 +422,7 @@ html.dark {
     color: var(--accent-text);
     backdrop-filter: blur(12px) saturate(140%);
     -webkit-backdrop-filter: blur(12px) saturate(140%);
-    box-shadow:
-      inset 0 1px 0 rgb(255 255 255 / 0.14),
-      0 0 18px -5px var(--accent-glow);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.16);
     transition:
       background-color 0.18s ease,
       border-color 0.18s ease,
@@ -407,6 +439,43 @@ html.dark {
     border-color: var(--accent-border-strong);
   }
 
+  /*
+   * クリアアクリルガラスの主役ボタン。
+   * 4箇所（Vロゴ / アクティブタブ / AND・ORの選択側 / ▶試聴）で使用する。
+   * 84%透明度のアクリル板＋1px半透明白枠線＋内側ハイライトのみ。
+   * 外側のカラーグロー（ぼかし発光）は一切付けない。
+   */
+  .glass-acrylic-primary {
+    background-color: var(--accent-acrylic-fill);
+    border: 1px solid var(--accent-acrylic-border);
+    color: #ffffff;
+    text-shadow: 0 1px 2px rgb(15 23 42 / 0.25);
+    backdrop-filter: blur(10px) saturate(150%);
+    -webkit-backdrop-filter: blur(10px) saturate(150%);
+    box-shadow:
+      inset 0 0 0 1px var(--accent-acrylic-hairline),
+      var(--accent-acrylic-highlight),
+      0 1px 2px rgb(15 23 42 / 0.14);
+    transition:
+      background-color 0.18s ease,
+      border-color 0.18s ease,
+      transform 0.18s ease;
+  }
+
+  .glass-acrylic-primary:hover {
+    background-color: var(--accent-acrylic-fill-hover);
+    border-color: var(--accent-acrylic-border-hover);
+  }
+
+  .glass-acrylic-primary:active {
+    transform: translateY(1px);
+  }
+
+  .glass-acrylic-primary:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
   /* 画像の上に重ねるバッジ。背後をすりガラスで白く／暗く敷いて可読性を確保 */
   .glass-accent-overlay {
     background-color: color-mix(
@@ -419,8 +488,8 @@ html.dark {
     backdrop-filter: blur(12px) saturate(140%);
     -webkit-backdrop-filter: blur(12px) saturate(140%);
     box-shadow:
-      0 1px 2px rgb(15 23 42 / 0.08),
-      0 0 16px -6px var(--accent-glow);
+      inset 0 1px 0 rgb(255 255 255 / 0.18),
+      0 1px 2px rgb(15 23 42 / 0.08);
   }
 
   html.dark .glass-accent-overlay {
@@ -454,7 +523,7 @@ html.dark {
     background-color: var(--accent-bg-subtle);
     border-color: var(--accent-border);
     color: var(--accent-text);
-    box-shadow: 0 0 16px -8px var(--accent-glow);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.16);
   }
 
   .glass-tab-inactive {
@@ -505,14 +574,36 @@ html.dark {
     background-color: rgb(15 23 42 / 0.75);
   }
 
-  /* スライダー・プロファイルバーの透過グラデーション */
+  /*
+   * 重ね合わせUI（ドロップダウン／セレクト／モーダルなど）は完全不透明にする。
+   * 背面の文字が透けて重なるのを防ぐため、filter ではなく実背景色＋影＋
+   * はっきりしたボーダーで階層を表現する。
+   */
+  .glass-menu {
+    background-color: #ffffff;
+    border: 1px solid rgb(203 213 225 / 0.95);
+    box-shadow:
+      0 2px 8px -2px rgb(15 23 42 / 0.12),
+      0 16px 36px -10px rgb(15 23 42 / 0.28);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  html.dark .glass-menu {
+    background-color: #0f172a;
+    border-color: rgb(51 65 85 / 0.95);
+    box-shadow:
+      0 2px 10px -2px rgb(0 0 0 / 0.45),
+      0 18px 40px -10px rgb(0 0 0 / 0.6);
+  }
+
+  /* スライダー・プロファイルバーの透過グラデーション（にじみなし） */
   .glass-accent-bar {
     background-image: linear-gradient(
       90deg,
       color-mix(in srgb, var(--accent-base) 65%, transparent),
       color-mix(in srgb, var(--accent-sub) 55%, transparent)
     );
-    box-shadow: 0 0 12px -4px var(--accent-glow);
   }
 
   .glass-progress-track {
@@ -631,7 +722,7 @@ body {
   background: color-mix(in srgb, #ffffff 90%, var(--accent-base));
   box-shadow:
     0 1px 4px rgb(15 23 42 / 0.22),
-    0 0 10px -2px var(--accent-glow);
+    inset 0 1px 0 rgb(255 255 255 / 0.6);
   cursor: grab;
   transition: box-shadow 0.15s ease;
 }
@@ -645,7 +736,7 @@ body {
   background: color-mix(in srgb, #ffffff 90%, var(--accent-base));
   box-shadow:
     0 1px 4px rgb(15 23 42 / 0.22),
-    0 0 10px -2px var(--accent-glow);
+    inset 0 1px 0 rgb(255 255 255 / 0.6);
   cursor: grab;
 }
 

@@ -328,7 +328,7 @@ function App() {
           aria-label={isFilterMode ? '条件ディグのフィルター' : '類似レコメンドの設定'}
           className={
             mobileSidebarOpen
-              ? 'fixed inset-y-0 left-0 z-50 w-[88%] max-w-sm overflow-y-auto border-r border-slate-200/70 bg-white/85 p-4 shadow-2xl backdrop-blur-xl dark:border-slate-800/70 dark:bg-slate-950/85 lg:sticky lg:top-20 lg:z-auto lg:max-h-[calc(100vh-7rem)] lg:w-80 lg:max-w-none lg:shrink-0 lg:overflow-y-auto lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none lg:backdrop-blur-none'
+              ? 'fixed inset-y-0 left-0 z-50 w-[88%] max-w-sm overflow-y-auto border-r border-slate-200 bg-white p-4 shadow-2xl dark:border-slate-700 dark:bg-slate-900 lg:sticky lg:top-20 lg:z-auto lg:max-h-[calc(100vh-7rem)] lg:w-80 lg:max-w-none lg:shrink-0 lg:overflow-y-auto lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none'
               : 'hidden lg:sticky lg:top-20 lg:block lg:max-h-[calc(100vh-7rem)] lg:w-80 lg:shrink-0 lg:overflow-y-auto'
           }
         >
@@ -418,7 +418,7 @@ function App() {
                           .value as SearchFilterState['sortBy'],
                       })
                     }
-                    className="glass-input appearance-none rounded-xl py-2 pl-3 pr-8 text-xs font-bold"
+                    className="glass-menu appearance-none rounded-xl py-2 pl-3 pr-8 text-xs font-bold"
                   >
                     {SORT_OPTIONS.map((option) => (
                       <option key={option.value} value={option.value}>
@@ -513,7 +513,7 @@ function App() {
 
       <footer className="border-t border-slate-200/70 py-6 dark:border-slate-800/70">
         <div className="mx-auto flex max-w-7xl flex-col gap-1 px-4 text-xs text-slate-500 dark:text-slate-400 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-          <p>VocaDig — Phase 7: フェーズ3基準の透明感UI × 8色推しカラーテーマ</p>
+          <p>VocaDig — Phase 8: にじみなしクリアアクリルUI × 8色推しカラーテーマ</p>
           <p>データ出典: VocaDB (https://vocadb.net)</p>
         </div>
       </footer>

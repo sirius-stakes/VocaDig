@@ -191,9 +191,7 @@ export function SongCard({
               onClick={() => onPlay(song)}
               aria-label={`${song.title}を試聴`}
               aria-pressed={isPlaying}
-              className={`glass-accent-button flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[11px] font-black ${
-                isPlaying ? 'glass-accent-tab' : ''
-              }`}
+              className="glass-acrylic-primary flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[11px] font-black"
             >
               <PlayIcon className="h-3 w-3" />
               {isPlaying ? '再生中' : '試聴'}

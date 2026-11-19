@@ -71,7 +71,7 @@ export function MiniPlayer({
       <div
         role="region"
         aria-label="試聴ミニプレイヤー"
-        className="animate-mini-player-in fixed inset-x-0 bottom-0 z-40 border-t border-slate-200/70 bg-white/75 shadow-[0_-8px_30px_rgb(15_23_42/0.12)] backdrop-blur-md dark:border-slate-800/70 dark:bg-slate-900/70"
+        className="animate-mini-player-in fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white shadow-[0_-8px_24px_-12px_rgb(15_23_42/0.25)] dark:border-slate-700 dark:bg-slate-900"
       >
         <div
           aria-hidden="true"

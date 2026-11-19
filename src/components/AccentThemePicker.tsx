@@ -74,7 +74,7 @@ export function AccentThemePicker({
       </button>
 
       {open && (
-        <div className="glass-panel absolute right-0 top-full z-50 mt-2 w-64 max-w-[calc(100vw-2rem)] overflow-hidden rounded-2xl border border-slate-200/70 shadow-2xl shadow-slate-950/20 dark:border-slate-700/60">
+        <div className="glass-menu absolute right-0 top-full z-50 mt-2 w-64 max-w-[calc(100vw-2rem)] overflow-hidden rounded-2xl">
           <div className="border-b border-slate-200/70 px-3 py-2.5 dark:border-slate-700/60">
             <p className="text-[10px] font-black tracking-[0.16em] text-slate-400 dark:text-slate-500">
               推しカラー

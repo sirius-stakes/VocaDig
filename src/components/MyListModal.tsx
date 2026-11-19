@@ -135,8 +135,8 @@ export function MyListModal({
         className="absolute inset-0 h-full w-full cursor-default bg-slate-950/60 backdrop-blur-sm"
       />
 
-      <div className="glass-panel relative flex max-h-[92vh] w-full max-w-2xl flex-col overflow-hidden rounded-t-3xl border border-slate-200/70 shadow-2xl dark:border-slate-700/60 sm:rounded-3xl">
-        <div className="flex items-center justify-between gap-3 border-b border-slate-200/70 bg-white/50 px-4 py-4 backdrop-blur-md dark:border-slate-700/60 dark:bg-slate-900/50 sm:px-5">
+      <div className="glass-menu relative flex max-h-[92vh] w-full max-w-2xl flex-col overflow-hidden rounded-t-3xl sm:rounded-3xl">
+        <div className="flex items-center justify-between gap-3 border-b border-slate-200 bg-white px-4 py-4 dark:border-slate-700 dark:bg-slate-900 sm:px-5">
           <div className="flex items-center gap-2.5">
             <span className="glass-accent-tab flex h-10 w-10 items-center justify-center rounded-2xl">
               <HeartIcon filled className="h-5 w-5" />
@@ -159,7 +159,7 @@ export function MyListModal({
         </div>
 
         {songs.length > 0 && (
-          <div className="flex flex-wrap items-center gap-2 border-b border-slate-200/70 bg-white/40 px-4 py-2.5 backdrop-blur-md dark:border-slate-700/60 dark:bg-slate-900/40 sm:px-5">
+          <div className="flex flex-wrap items-center gap-2 border-b border-slate-200 bg-white px-4 py-2.5 dark:border-slate-700 dark:bg-slate-900 sm:px-5">
             <button
               type="button"
               onClick={onSeedAll}
@@ -319,7 +319,7 @@ export function MyListModal({
           )}
         </div>
 
-        <div className="border-t border-slate-200/70 bg-white/50 px-4 py-3 backdrop-blur-md dark:border-slate-700/60 dark:bg-slate-900/50 sm:px-5">
+        <div className="border-t border-slate-200 bg-white px-4 py-3 dark:border-slate-700 dark:bg-slate-900 sm:px-5">
           <div className="flex flex-wrap items-center gap-2">
             <button
               type="button"

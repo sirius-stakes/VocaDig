@@ -145,7 +145,7 @@ export function FilterSidebar({
                 aria-pressed={value.tagMatchMode === mode}
                 className={`rounded-md px-2 py-1 text-[10px] font-black ${
                   value.tagMatchMode === mode
-                    ? 'glass-accent-tab'
+                    ? 'glass-acrylic-primary'
                     : 'glass-tab-inactive'
                 }`}
               >

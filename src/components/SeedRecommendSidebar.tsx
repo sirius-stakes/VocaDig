@@ -3,6 +3,10 @@ import { VOICEBANK_BY_ID } from '../constants/masterData';
 import type { TasteProfile, VocaSong } from '../types/song';
 import { formatBpm, formatCount, tagDisplayName } from '../utils/format';
 import {
+  RECOMMEND_MAX_RESULTS,
+  RECOMMEND_MIN_MATCH_SCORE,
+} from '../utils/recommendEngine';
+import {
   cancelVocaDbSearch,
   isVocaDbAbortError,
   searchVocaDbSongsDebounced,
@@ -399,6 +403,10 @@ export function SeedRecommendSidebar({
             <SparklesIcon className="glass-accent-text h-3.5 w-3.5" />
             <p className={sectionTitleClass}>あなたの好みプロファイル</p>
           </div>
+
+          <p className="glass-accent-chip mt-2 inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-bold">
+            {`マッチ率${RECOMMEND_MIN_MATCH_SCORE}%以上・上位最大${RECOMMEND_MAX_RESULTS}曲`}
+          </p>
 
           <div className="mt-3 grid grid-cols-2 gap-2">
             <div className="glass-accent-chip rounded-xl px-3 py-2">

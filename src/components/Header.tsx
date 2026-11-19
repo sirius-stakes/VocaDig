@@ -59,7 +59,7 @@ function ModeTabs({
             onClick={() => onChangeMode(tab.mode)}
             aria-pressed={active}
             className={`flex flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-xl px-3 py-2 text-xs font-bold sm:flex-none sm:text-sm ${
-              active ? 'glass-accent-tab' : 'glass-tab-inactive'
+              active ? 'glass-acrylic-primary' : 'glass-tab-inactive'
             }`}
           >
             <span className={active ? '' : 'text-cyan-700 dark:text-cyan-300'}>
@@ -87,7 +87,7 @@ export function Header({
     <header className="sticky top-0 z-30 border-b border-slate-200/70 bg-white/75 backdrop-blur-md dark:border-slate-800/70 dark:bg-slate-900/70">
       <div className="mx-auto flex h-16 max-w-7xl items-center gap-3 px-4 sm:px-6">
         <div className="flex shrink-0 items-center gap-2.5">
-          <div className="glass-accent-tab flex h-10 w-10 items-center justify-center rounded-2xl text-lg font-black">
+          <div className="glass-acrylic-primary flex h-10 w-10 items-center justify-center rounded-2xl text-lg font-black">
             V
           </div>
           <div className="leading-tight">
