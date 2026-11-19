@@ -49,7 +49,7 @@ export function SongCard({
   ].slice(0, 6);
 
   return (
-    <article className="group flex gap-3 rounded-2xl border border-slate-200 bg-white p-3 transition hover:border-cyan-300 hover:shadow-lg hover:shadow-cyan-500/5 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-cyan-700 sm:gap-4 sm:p-4">
+    <article className="group flex gap-3 rounded-2xl border border-slate-200 bg-white p-3 transition hover:border-cyan-300 hover:shadow-lg hover:tint-shadow dark:border-slate-800 dark:bg-slate-900 dark:hover:border-cyan-700 sm:gap-4 sm:p-4">
       <div className="relative aspect-video w-28 shrink-0 self-start overflow-hidden rounded-xl bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-950 sm:w-40">
         {primaryPv && !imageFailed ? (
           <img
@@ -68,7 +68,7 @@ export function SongCard({
         )}
 
         {match && (
-          <span className="absolute left-1.5 top-1.5 rounded-lg bg-gradient-to-r from-violet-600 to-fuchsia-500 px-1.5 py-0.5 text-[10px] font-black text-white shadow-lg shadow-violet-900/30">
+          <span className="absolute left-1.5 top-1.5 rounded-lg bg-gradient-to-r from-violet-600 to-fuchsia-500 px-1.5 py-0.5 text-[10px] font-black text-white shadow-lg tint-shadow">
             マッチ {Math.round(match.score)}%
           </span>
         )}
@@ -98,7 +98,7 @@ export function SongCard({
             rel="noreferrer"
             aria-label={`${song.title}をVocaDBで開く`}
             title="VocaDBで開く"
-            className="shrink-0 rounded-lg p-1 text-slate-300 transition hover:bg-cyan-500/10 hover:text-cyan-500 dark:text-slate-600 dark:hover:text-cyan-400"
+            className="shrink-0 rounded-lg p-1 text-slate-300 transition hover:tint-bg hover:text-cyan-500 dark:text-slate-600 dark:hover:text-cyan-400"
           >
             <ExternalLinkIcon className="h-3.5 w-3.5" />
           </a>
@@ -108,7 +108,7 @@ export function SongCard({
           <span
             className={`rounded-md px-1.5 py-0.5 text-[10px] font-black tabular-nums ${
               song.bpm !== null
-                ? 'bg-teal-500/10 text-teal-700 dark:bg-teal-500/15 dark:text-teal-300'
+                ? 'tint-bg text-teal-700 dark:tint-bg dark:text-teal-300'
                 : 'bg-slate-100 text-slate-400 dark:bg-slate-800 dark:text-slate-500'
             }`}
           >
@@ -142,6 +142,29 @@ export function SongCard({
           )}
         </div>
 
+        {match && (
+          <div className="mt-2 flex items-center gap-2">
+            <div
+              className="h-1.5 flex-1 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800"
+              role="progressbar"
+              aria-label="レコメンドのマッチ度"
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-valuenow={Math.round(match.score)}
+            >
+              <div
+                className="h-full rounded-full bg-gradient-to-r from-cyan-500 to-teal-500"
+                style={{
+                  width: `${Math.min(100, Math.max(0, match.score))}%`,
+                }}
+              />
+            </div>
+            <span className="shrink-0 text-[10px] font-black tabular-nums text-cyan-700 dark:text-cyan-300">
+              {Math.round(match.score)}%
+            </span>
+          </div>
+        )}
+
         <div className="mt-2 flex flex-wrap gap-1">
           {displayTags.map((tag) => {
             const matched = matchedSet.has(tag);
@@ -151,7 +174,7 @@ export function SongCard({
                 title={tag}
                 className={`max-w-[11rem] truncate rounded-full px-2 py-0.5 text-[10px] font-semibold ${
                   matched
-                    ? 'bg-violet-500/15 text-violet-700 ring-1 ring-violet-500/30 dark:bg-violet-500/20 dark:text-violet-300'
+                    ? 'tint-bg text-violet-700 ring-1 tint-ring dark:tint-bg-strong dark:text-violet-300'
                     : 'bg-slate-100 text-slate-500 dark:bg-slate-800/80 dark:text-slate-400'
                 }`}
               >
@@ -170,8 +193,8 @@ export function SongCard({
               aria-pressed={isPlaying}
               className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[11px] font-black shadow-sm transition ${
                 isPlaying
-                  ? 'bg-teal-500 text-white shadow-teal-500/25 hover:bg-teal-600'
-                  : 'bg-cyan-500 text-white shadow-cyan-500/20 hover:bg-cyan-600'
+                  ? 'bg-teal-600 text-white tint-shadow hover:bg-teal-700'
+                  : 'bg-cyan-500 text-white tint-shadow hover:bg-cyan-600'
               }`}
             >
               <PlayIcon className="h-3 w-3" />
@@ -218,8 +241,8 @@ export function SongCard({
             }
             className={`ml-auto flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-[11px] font-bold transition ${
               isInMyList
-                ? 'border-fuchsia-400 bg-fuchsia-500/10 text-fuchsia-600 dark:border-fuchsia-500/60 dark:text-fuchsia-400'
-                : 'border-slate-200 text-slate-500 hover:border-fuchsia-300 hover:text-fuchsia-500 dark:border-slate-700 dark:text-slate-400 dark:hover:border-fuchsia-500/60 dark:hover:text-fuchsia-400'
+                ? 'border-fuchsia-400 tint-bg text-fuchsia-600 dark:tint-border-strong dark:text-fuchsia-400'
+                : 'border-slate-200 text-slate-500 hover:border-fuchsia-300 hover:text-fuchsia-500 dark:border-slate-700 dark:text-slate-400 dark:hover:tint-border-strong dark:hover:text-fuchsia-400'
             }`}
           >
             <HeartIcon filled={isInMyList} className="h-3 w-3" />

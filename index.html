@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ja">
+<html lang="ja" data-accent="miku">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -38,6 +38,22 @@
         ).matches;
         const dark = stored ? stored === 'dark' : prefersDark;
         document.documentElement.classList.toggle('dark', dark);
+
+        // 推しカラーテーマも描画前に適用して色のちらつきを防ぐ
+        const accentIds = [
+          'miku',
+          'teto',
+          'rinlen',
+          'luka',
+          'kafu',
+          'flower',
+          'gumi',
+          'zundamon',
+        ];
+        const accent = localStorage.getItem('vocadig-accent-theme');
+        if (accent && accentIds.includes(accent)) {
+          document.documentElement.dataset.accent = accent;
+        }
       } catch {
         /* localStorage が使えない環境ではシステム設定に任せる */
       }

@@ -17,6 +17,7 @@
 
 ### 好きな曲から推薦（Like-to-Dig）
 - シード曲の共通タグ（2.5倍の重み）・平均BPM・音声ライブラリから類似度をスコアリング
+- **マッチ率30%以上**の曲のみを抽出し、スコア降順で**最大50曲**まで表示
 - マッチ度（%）と一致タグをカードに表示
 - 好みプロファイル（平均BPM・特徴タグ・よく聴く音声ライブラリ）を可視化
 - 音声ライブラリ一致ボーナスのON / OFF
@@ -43,6 +44,10 @@
 ### テーマ切替
 - ライト／ダークモードをヘッダーから切替（`localStorage` キー: `vocadig-theme`）
 - 初回訪問時はOSのカラースキームに追従
+- **推しカラーテーマ:** 音声ライブラリ別のアクセントカラーを8種類からワンクリック切替（`localStorage` キー: `vocadig-accent-theme`）
+- `<html data-accent="miku">` ＋ CSSカスタムプロパティで、ボタン・タブ・チップ・スライダー・マッチ度表示までアプリ全体の色が連動
+- 対応テーマ: 初音ミク / 重音テト / 鏡音リン・レン / 巡音ルカ / 可不 KAFU / v flower / GUMI / ずんだもん
+- ライト・ダークどちらでも白文字ボタンのコントラストを保つ明暗用変数を定義
 
 ### OGP・ファビコン
 - `index.html` にタイトル・ディスクリプション・OGP / Twitter Card メタデータを設定
@@ -86,18 +91,20 @@ npm run fetch-data
 ```text
 src/
   components/
-    Header.tsx                 # ロゴ・モードタブ・マイリスト・テーマ切替
+    Header.tsx                 # ロゴ・モードタブ・推しカラー／テーマ切替
+    AccentThemePicker.tsx      # 音声ライブラリ別カラーのポップオーバー
     FilterSidebar.tsx          # タグ / BPM / 音声ライブラリの条件検索
     SeedRecommendSidebar.tsx   # シード検索・VocaDB検索・好みプロファイル
     SongCard.tsx               # 楽曲カード（マッチ度・一致タグ・試聴）
     MiniPlayer.tsx             # 下部固定の試聴ミニプレイヤー
     MyListModal.tsx            # マイリストの一覧・共有・一括シード追加
   hooks/
-    useTheme.ts                # ライト／ダークモード管理
+    useTheme.ts                # ライト／ダークモード＋推しカラーテーマ管理
     useSongCatalog.ts          # songs.json 読み込み
     useMyList.ts               # マイリスト永続化・テキスト/JSON書き出し
   constants/
     masterData.ts              # 音声ライブラリ・キュレーションタグ・ストップワード
+    accentThemes.ts            # 8種類の推しカラーテーマ定義
     search.ts                  # 検索初期値・並び替え定義
   types/song.ts                # 共有型（VocaSong など）
   utils/
@@ -134,6 +141,8 @@ public/
 - **Phase 1:** データ基盤（VocaSong型・正規化・データ取得スクリプト）
 - **Phase 2:** 検索・レコメンドエンジン × メインUI
 - **Phase 3:** 試聴ミニプレイヤー・マイリスト共有・OGP・README整備
+- **Phase 4:** 楽曲データ拡充（2,667曲）・タグ正規化
+- **Phase 5:** 類似曲レコメンドの足切り（30%以上・最大50曲）と推しカラーテーマ（8種類）
 
 ## ライセンス・注意事項
 

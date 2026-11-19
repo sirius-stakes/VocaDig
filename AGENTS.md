@@ -17,11 +17,18 @@
 
 ## 3. UI/UX・デザイン統一ルール（ライト／ダーク両対応）
 - **テーマ切替:** ライトモード（ホワイト基調）とダークモードをヘッダーのトグルでいつでも切り替え可能にし、`localStorage`（キー: `vocadig-theme`）に保存すること。
-- **カラーパレット:**
+- **推しカラー切替:** ライト／ダークとは独立して、音声ライブラリ別のアクセントカラーを切り替えられるようにすること。
+  - `useTheme.ts` が `<html data-accent="miku">` のように属性を付与し、`src/index.css` の CSS カスタムプロパティでアプリ全体のアクセント色を動的に切り替える。
+  - `localStorage` キーは `vocadig-accent-theme`。対応IDは `miku`（デフォルト）/ `teto` / `rinlen` / `luka` / `kafu` / `flower` / `gumi` / `zundamon`。
+  - ヘッダーには現在のテーマカラー丸バッジ付きの「推しカラー切替ポップオーバー」を配置する。
+- **カラーパレット（CSS変数ベース）:**
   - ベース背景: ライト `bg-slate-50 text-slate-900` / ダーク `dark:bg-slate-950 dark:text-slate-100`
   - カード・パネル: ライト `bg-white border-slate-200` / ダーク `dark:bg-slate-900 dark:border-slate-800`
-  - メインアクセント: `cyan-500` / `teal-500`（音楽・ボカロ感）
-  - レコメンド一致度アクセント: `violet-500` / `fuchsia-500`
+  - アクセント基準色: `--accent-500` / `--accent-600`（各テーマのイメージカラー）
+  - 塗りボタン・アクティブタブ: 白文字のコントラストを確保するため `--accent-700` / `--accent-800` を基本とする
+  - 半透明アクセント: `--accent-soft` / `--accent-soft-strong` / `--accent-border-soft` / `--accent-border-strong` / `--accent-ring` / `--accent-shadow`（ダークモードでは明度を上げて可読性を維持）。UIでは `tint-bg` / `tint-bg-strong` / `tint-border` / `tint-border-strong` / `tint-ring` / `tint-shadow` ユーティリティを使用する。
+  - Tailwind の `cyan` / `teal` / `violet` / `fuchsia` ユーティリティは `--color-*` を介して推しカラー変数へ接続済み。新規UIでもアクセント色はこれらのユーティリティまたは CSS 変数を使用し、固定のHEX値を直接書かないこと。
+  - 成功状態は `emerald`、削除・警告は `rose`、音声ライブラリ固有の識別色はインラインstyleのまま固定でよい。
 - **レスポンシブ:** PCは左サイドバー（320px）＋右メインエリアの2カラム、モバイルはドロワー/アコーディオン＋1カラムカード表示。
 
 ## 4. 外部API（VocaDB API）レート制限・安全性ルール

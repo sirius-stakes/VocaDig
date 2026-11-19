@@ -138,7 +138,7 @@ export function MyListModal({
       <div className="relative flex max-h-[92vh] w-full max-w-2xl flex-col overflow-hidden rounded-t-3xl border border-slate-200 bg-slate-50 shadow-2xl dark:border-slate-800 dark:bg-slate-950 sm:rounded-3xl">
         <div className="flex items-center justify-between gap-3 border-b border-slate-200 bg-white px-4 py-4 dark:border-slate-800 dark:bg-slate-900 sm:px-5">
           <div className="flex items-center gap-2.5">
-            <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-fuchsia-500 to-violet-500 text-white shadow-lg shadow-fuchsia-500/25">
+            <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-fuchsia-500 to-violet-500 text-white shadow-lg tint-shadow">
               <HeartIcon filled className="h-5 w-5" />
             </span>
             <div>
@@ -164,7 +164,7 @@ export function MyListModal({
               type="button"
               onClick={onSeedAll}
               disabled={songs.length === 0}
-              className="flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-violet-500 to-fuchsia-500 px-3 py-2 text-[11px] font-black text-white shadow-md shadow-violet-500/25 transition hover:from-violet-600 hover:to-fuchsia-600"
+              className="flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-violet-500 to-fuchsia-500 px-3 py-2 text-[11px] font-black text-white shadow-md tint-shadow transition hover:from-violet-600 hover:to-fuchsia-600"
             >
               <SparklesIcon className="h-3.5 w-3.5" />
               まとめて推薦基準に追加
@@ -183,8 +183,8 @@ export function MyListModal({
         <div className="flex-1 overflow-y-auto px-4 py-4 sm:px-5">
           {songs.length === 0 ? (
             <div className="py-10 text-center">
-              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-fuchsia-500/10">
-                <HeartIcon className="h-7 w-7 text-fuchsia-400" />
+              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl tint-bg">
+                <HeartIcon className="h-7 w-7 text-fuchsia-600 dark:text-fuchsia-400" />
               </div>
               <p className="mt-4 text-sm font-bold">マイリストは空です</p>
               <p className="mx-auto mt-1 max-w-xs text-xs leading-relaxed text-slate-500 dark:text-slate-400">
@@ -200,7 +200,7 @@ export function MyListModal({
                 return (
                   <li
                     key={song.id}
-                    className="group rounded-2xl border border-slate-200 bg-white p-3 transition hover:border-fuchsia-300 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-fuchsia-500/40"
+                    className="group rounded-2xl border border-slate-200 bg-white p-3 transition hover:border-fuchsia-300 dark:border-slate-800 dark:bg-slate-900 dark:hover:tint-border"
                   >
                     <div className="flex items-start justify-between gap-2">
                       <div className="flex min-w-0 items-start gap-2.5">
@@ -254,7 +254,7 @@ export function MyListModal({
                     </div>
 
                     <div className="mt-2 flex flex-wrap items-center gap-1">
-                      <span className="rounded bg-teal-500/10 px-1.5 py-0.5 text-[10px] font-black text-teal-700 dark:text-teal-300">
+                      <span className="rounded tint-bg px-1.5 py-0.5 text-[10px] font-black text-teal-700 dark:text-teal-300">
                         BPM {formatBpm(song.bpm)}
                       </span>
                       {voicebank && (
@@ -278,7 +278,7 @@ export function MyListModal({
                         href={song.vocadbUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="ml-auto flex items-center gap-0.5 text-[10px] font-semibold text-slate-400 transition hover:text-cyan-500"
+                        className="ml-auto flex items-center gap-0.5 text-[10px] font-semibold text-slate-400 transition hover:text-cyan-600 dark:hover:text-cyan-400"
                       >
                         VocaDB
                         <ExternalLinkIcon className="h-2.5 w-2.5" />
@@ -289,7 +289,7 @@ export function MyListModal({
                       <button
                         type="button"
                         onClick={() => onPlay(song)}
-                        className="flex flex-1 items-center justify-center gap-1.5 rounded-lg border border-cyan-300 px-2 py-1.5 text-[11px] font-bold text-cyan-600 transition hover:bg-cyan-500/10 dark:border-cyan-500/40 dark:text-cyan-300"
+                        className="flex flex-1 items-center justify-center gap-1.5 rounded-lg border border-cyan-300 px-2 py-1.5 text-[11px] font-bold text-cyan-600 transition hover:tint-bg dark:tint-border dark:text-cyan-300"
                       >
                         <PlayIcon className="h-3 w-3" />
                         試聴
@@ -301,7 +301,7 @@ export function MyListModal({
                         className={`flex flex-1 items-center justify-center gap-1.5 rounded-lg border px-2 py-1.5 text-[11px] font-bold transition ${
                           added
                             ? 'cursor-default border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
-                            : 'border-violet-300 text-violet-600 hover:bg-violet-500/10 dark:border-violet-500/40 dark:text-violet-300'
+                            : 'border-violet-300 text-violet-600 hover:tint-bg dark:tint-border dark:text-violet-300'
                         }`}
                       >
                         {added ? (

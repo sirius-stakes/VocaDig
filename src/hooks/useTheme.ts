@@ -1,4 +1,12 @@
 import { useCallback, useEffect, useState } from 'react';
+import {
+  ACCENT_THEME_BY_ID,
+  ACCENT_THEME_STORAGE_KEY,
+  DEFAULT_ACCENT_THEME,
+  isAccentThemeId,
+  type AccentTheme,
+  type AccentThemeId,
+} from '../constants/accentThemes';
 
 export type Theme = 'light' | 'dark';
 
@@ -30,10 +38,41 @@ function persistTheme(theme: Theme): void {
   }
 }
 
-/** `html` 要素の `dark` クラスと localStorage を同期するテーマ管理フック */
+function readStoredAccentTheme(): AccentThemeId {
+  if (typeof window === 'undefined') return DEFAULT_ACCENT_THEME;
+  try {
+    const stored = window.localStorage.getItem(ACCENT_THEME_STORAGE_KEY);
+    return isAccentThemeId(stored) ? stored : DEFAULT_ACCENT_THEME;
+  } catch {
+    return DEFAULT_ACCENT_THEME;
+  }
+}
+
+function persistAccentTheme(accentTheme: AccentThemeId): void {
+  try {
+    window.localStorage.setItem(ACCENT_THEME_STORAGE_KEY, accentTheme);
+  } catch {
+    // localStorage が使えない環境でも推しカラー切替自体は機能させる
+  }
+}
+
+/** 現在のアクセントテーマ定義（不明なIDの場合はデフォルト） */
+function resolveAccentTheme(accentTheme: AccentThemeId): AccentTheme {
+  return ACCENT_THEME_BY_ID.get(accentTheme) ?? ACCENT_THEME_BY_ID.get(
+    DEFAULT_ACCENT_THEME,
+  )!;
+}
+
+/**
+ * `html` 要素の `dark` クラス / `data-accent` 属性と localStorage を同期する
+ * テーマ管理フック。ライト・ダークと推しカラーは独立して切り替えられる。
+ */
 export function useTheme() {
   const [theme, setThemeState] = useState<Theme>(
     () => readStoredTheme() ?? getSystemTheme(),
+  );
+  const [accentTheme, setAccentThemeState] = useState<AccentThemeId>(
+    readStoredAccentTheme,
   );
 
   useEffect(() => {
@@ -41,6 +80,19 @@ export function useTheme() {
     root.classList.toggle('dark', theme === 'dark');
     root.style.colorScheme = theme;
   }, [theme]);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    root.dataset.accent = accentTheme;
+
+    // モバイルブラウザのアドレスバー色も推しカラーに合わせる
+    const meta = document.querySelector<HTMLMetaElement>(
+      'meta[name="theme-color"]',
+    );
+    if (meta) {
+      meta.content = resolveAccentTheme(accentTheme).primary;
+    }
+  }, [accentTheme]);
 
   // ユーザーが明示的に選ぶまでは OS のカラースキーム変更に追従する
   useEffect(() => {
@@ -68,5 +120,17 @@ export function useTheme() {
     });
   }, []);
 
-  return { theme, setTheme, toggleTheme };
+  const setAccentTheme = useCallback((next: AccentThemeId) => {
+    persistAccentTheme(next);
+    setAccentThemeState(next);
+  }, []);
+
+  return {
+    theme,
+    setTheme,
+    toggleTheme,
+    accentTheme,
+    accentThemeMeta: resolveAccentTheme(accentTheme),
+    setAccentTheme,
+  };
 }

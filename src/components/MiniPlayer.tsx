@@ -130,9 +130,9 @@ export function MiniPlayer({
                 <div className="min-w-0">
                   <p className="flex items-center gap-1.5 text-[9px] font-black tracking-[0.18em] text-cyan-600 dark:text-cyan-400">
                     <span className="flex items-end gap-0.5" aria-hidden="true">
-                      <span className="h-1.5 w-0.5 animate-pulse rounded-full bg-cyan-500" />
-                      <span className="h-2.5 w-0.5 animate-pulse rounded-full bg-teal-500 [animation-delay:120ms]" />
-                      <span className="h-2 w-0.5 animate-pulse rounded-full bg-cyan-400 [animation-delay:240ms]" />
+                      <span className="h-1.5 w-0.5 animate-pulse rounded-full bg-cyan-500 dark:bg-cyan-400" />
+                      <span className="h-2.5 w-0.5 animate-pulse rounded-full bg-teal-500 dark:bg-teal-400 [animation-delay:120ms]" />
+                      <span className="h-2 w-0.5 animate-pulse rounded-full bg-cyan-400 dark:bg-cyan-300 [animation-delay:240ms]" />
                     </span>
                     NOW DIGGING
                   </p>
@@ -204,8 +204,8 @@ export function MiniPlayer({
                   aria-pressed={isInMyList}
                   className={`flex items-center gap-1 rounded-lg border px-2 py-1 text-[10px] font-bold transition sm:text-[11px] ${
                     isInMyList
-                      ? 'border-fuchsia-400 bg-fuchsia-500/10 text-fuchsia-600 dark:border-fuchsia-500/60 dark:text-fuchsia-400'
-                      : 'border-slate-200 text-slate-500 hover:border-fuchsia-300 hover:text-fuchsia-500 dark:border-slate-700 dark:text-slate-400 dark:hover:border-fuchsia-500/60 dark:hover:text-fuchsia-400'
+                      ? 'border-fuchsia-400 tint-bg text-fuchsia-600 dark:tint-border-strong dark:text-fuchsia-400'
+                      : 'border-slate-200 text-slate-500 hover:border-fuchsia-300 hover:text-fuchsia-500 dark:border-slate-700 dark:text-slate-400 dark:hover:tint-border-strong dark:hover:text-fuchsia-400'
                   }`}
                 >
                   <HeartIcon filled={isInMyList} className="h-3 w-3" />
@@ -228,7 +228,7 @@ export function MiniPlayer({
                   href={song.vocadbUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="ml-auto hidden items-center gap-1 text-[10px] font-semibold text-slate-400 transition hover:text-cyan-500 sm:flex"
+                  className="ml-auto hidden items-center gap-1 text-[10px] font-semibold text-slate-400 transition hover:text-cyan-600 dark:hover:text-cyan-400 sm:flex"
                 >
                   VocaDB
                   <ExternalLinkIcon className="h-2.5 w-2.5" />

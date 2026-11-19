@@ -1,6 +1,8 @@
 import type { ReactNode } from 'react';
+import type { AccentThemeId } from '../constants/accentThemes';
 import type { AppMode } from '../types/song';
 import type { Theme } from '../hooks/useTheme';
+import { AccentThemePicker } from './AccentThemePicker';
 import {
   HeartIcon,
   ListIcon,
@@ -14,6 +16,8 @@ interface HeaderProps {
   onChangeMode: (mode: AppMode) => void;
   theme: Theme;
   onToggleTheme: () => void;
+  accentTheme: AccentThemeId;
+  onChangeAccentTheme: (accentTheme: AccentThemeId) => void;
   myListCount: number;
   onOpenMyList: () => void;
 }
@@ -56,7 +60,7 @@ function ModeTabs({
             aria-pressed={active}
             className={`flex flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-xl px-3 py-2 text-xs font-bold transition sm:flex-none sm:text-sm ${
               active
-                ? 'bg-gradient-to-r from-cyan-500 to-teal-500 text-white shadow-lg shadow-cyan-500/25'
+                ? 'bg-gradient-to-r from-cyan-500 to-teal-500 text-white shadow-lg tint-shadow'
                 : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white'
             }`}
           >
@@ -76,6 +80,8 @@ export function Header({
   onChangeMode,
   theme,
   onToggleTheme,
+  accentTheme,
+  onChangeAccentTheme,
   myListCount,
   onOpenMyList,
 }: HeaderProps) {
@@ -83,7 +89,7 @@ export function Header({
     <header className="sticky top-0 z-30 border-b border-slate-200/80 bg-white/85 backdrop-blur-md dark:border-slate-800 dark:bg-slate-950/85">
       <div className="mx-auto flex h-16 max-w-7xl items-center gap-3 px-4 sm:px-6">
         <div className="flex shrink-0 items-center gap-2.5">
-          <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-500 to-teal-500 text-lg font-black text-white shadow-lg shadow-cyan-500/25">
+          <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-500 to-teal-500 text-lg font-black text-white shadow-lg tint-shadow">
             V
           </div>
           <div className="leading-tight">
@@ -101,6 +107,11 @@ export function Header({
         />
 
         <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
+          <AccentThemePicker
+            accentTheme={accentTheme}
+            onChangeAccentTheme={onChangeAccentTheme}
+          />
+
           <button
             type="button"
             onClick={onOpenMyList}
@@ -110,7 +121,7 @@ export function Header({
             <ListIcon className="h-4 w-4" />
             <span className="hidden sm:inline">マイリスト</span>
             {myListCount > 0 && (
-              <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-fuchsia-500 px-1 text-[10px] font-black text-white">
+              <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-fuchsia-600 px-1 text-[10px] font-black text-white">
                 {myListCount > 99 ? '99+' : myListCount}
               </span>
             )}

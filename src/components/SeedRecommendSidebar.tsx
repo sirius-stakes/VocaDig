@@ -66,7 +66,7 @@ function SongSearchRow({
       className={`flex w-full items-center gap-2 rounded-xl px-2.5 py-2 text-left transition ${
         added
           ? 'cursor-default bg-slate-100/60 opacity-70 dark:bg-slate-800/40'
-          : 'hover:bg-cyan-50 dark:hover:bg-cyan-500/10'
+          : 'hover:bg-cyan-50 dark:hover:tint-bg'
       }`}
     >
       <div className="min-w-0 flex-1">
@@ -80,7 +80,7 @@ function SongSearchRow({
           <span className="mx-1.5 text-slate-300 dark:text-slate-600">·</span>
           BPM {formatBpm(song.bpm)}
           {source === 'vocadb' && (
-            <span className="ml-1.5 rounded bg-violet-500/15 px-1 py-0.5 text-[9px] font-black text-violet-600 dark:text-violet-300">
+            <span className="ml-1.5 rounded tint-bg px-1 py-0.5 text-[9px] font-black text-violet-600 dark:text-violet-300">
               VocaDB
             </span>
           )}
@@ -89,7 +89,7 @@ function SongSearchRow({
       {added ? (
         <CheckIcon className="h-4 w-4 shrink-0 text-emerald-500" />
       ) : (
-        <PlusIcon className="h-4 w-4 shrink-0 text-cyan-500" />
+        <PlusIcon className="h-4 w-4 shrink-0 text-cyan-600 dark:text-cyan-400" />
       )}
     </button>
   );
@@ -221,7 +221,7 @@ export function SeedRecommendSidebar({
               }
             }}
             placeholder="曲名・P名で検索"
-            className="w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 pl-9 pr-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-violet-400 focus:ring-2 focus:ring-violet-500/20 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100 dark:placeholder:text-slate-500 dark:focus:border-violet-500"
+            className="w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 pl-9 pr-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-violet-400 focus:ring-2 focus:tint-ring dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100 dark:placeholder:text-slate-500 dark:focus:border-violet-500"
           />
         </div>
 
@@ -229,7 +229,7 @@ export function SeedRecommendSidebar({
           type="button"
           onClick={() => void handleVocaDbSearch()}
           disabled={apiLoading || trimmedQuery.length === 0}
-          className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-violet-500 to-fuchsia-500 px-3 py-2 text-[11px] font-black text-white shadow-md shadow-violet-500/20 transition hover:from-violet-600 hover:to-fuchsia-600 disabled:cursor-not-allowed disabled:opacity-50"
+          className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-violet-500 to-fuchsia-500 px-3 py-2 text-[11px] font-black text-white shadow-md tint-shadow transition hover:from-violet-600 hover:to-fuchsia-600 disabled:cursor-not-allowed disabled:opacity-50"
         >
           {apiLoading ? (
             <>
@@ -325,7 +325,7 @@ export function SeedRecommendSidebar({
       <section className={sectionClass}>
         <div className="flex items-center justify-between">
           <p className={sectionTitleClass}>選択中のシード曲</p>
-          <span className="rounded-full bg-violet-500/10 px-2 py-0.5 text-[10px] font-black text-violet-600 dark:text-violet-300">
+          <span className="rounded-full tint-bg px-2 py-0.5 text-[10px] font-black text-violet-600 dark:text-violet-300">
             {seeds.length}曲
           </span>
         </div>
@@ -345,7 +345,7 @@ export function SeedRecommendSidebar({
             {seeds.map((song) => (
               <li
                 key={song.id}
-                className="rounded-xl border border-violet-500/20 bg-violet-500/5 p-2.5"
+                className="rounded-xl border tint-border tint-bg p-2.5"
               >
                 <div className="flex items-start justify-between gap-2">
                   <div className="min-w-0">
@@ -366,7 +366,7 @@ export function SeedRecommendSidebar({
                   </button>
                 </div>
                 <div className="mt-1.5 flex flex-wrap gap-1">
-                  <span className="rounded bg-teal-500/15 px-1.5 py-0.5 text-[10px] font-black text-teal-700 dark:text-teal-300">
+                  <span className="rounded tint-bg px-1.5 py-0.5 text-[10px] font-black text-teal-700 dark:text-teal-300">
                     BPM {formatBpm(song.bpm)}
                   </span>
                   {song.tags.slice(0, 3).map((tag) => (
@@ -382,7 +382,7 @@ export function SeedRecommendSidebar({
                     href={song.vocadbUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="ml-auto flex items-center gap-0.5 text-[10px] font-semibold text-slate-400 transition hover:text-cyan-500"
+                    className="ml-auto flex items-center gap-0.5 text-[10px] font-semibold text-slate-400 transition hover:text-cyan-600 dark:hover:text-cyan-400"
                   >
                     VocaDB
                     <ExternalLinkIcon className="h-2.5 w-2.5" />
@@ -397,7 +397,7 @@ export function SeedRecommendSidebar({
       {profile && seeds.length > 0 && (
         <section className={sectionClass}>
           <div className="flex items-center gap-1.5">
-            <SparklesIcon className="h-3.5 w-3.5 text-violet-500" />
+            <SparklesIcon className="h-3.5 w-3.5 text-violet-600 dark:text-violet-400" />
             <p className={sectionTitleClass}>あなたの好みプロファイル</p>
           </div>
 
@@ -510,8 +510,8 @@ export function SeedRecommendSidebar({
       )}
 
       {seeds.length === 0 && (
-        <div className="flex items-start gap-2 rounded-2xl border border-violet-500/20 bg-violet-500/5 px-4 py-3">
-          <ResetIcon className="mt-0.5 h-3.5 w-3.5 shrink-0 text-violet-500" />
+        <div className="flex items-start gap-2 rounded-2xl border tint-border tint-bg px-4 py-3">
+          <ResetIcon className="mt-0.5 h-3.5 w-3.5 shrink-0 text-violet-600 dark:text-violet-400" />
           <p className="text-[10px] leading-relaxed text-slate-500 dark:text-slate-400">
             シード曲を追加すると、共通タグ（2.5倍重み）・平均BPM・音声ライブラリから類似度を自動計算します。
           </p>

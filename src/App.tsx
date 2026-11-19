@@ -23,6 +23,8 @@ import {
   buildTasteProfile,
   calculateSimilarSongs,
   filterAndSortSongs,
+  RECOMMEND_MAX_RESULTS,
+  RECOMMEND_MIN_MATCH_SCORE,
 } from './utils/recommendEngine';
 import {
   readFilterFromUrl,
@@ -51,7 +53,12 @@ const MODE_COPY: Record<
 };
 
 function App() {
-  const { theme, toggleTheme } = useTheme();
+  const {
+    theme,
+    toggleTheme,
+    accentTheme,
+    setAccentTheme,
+  } = useTheme();
   const { songs, loading, error, reload } = useSongCatalog();
   const {
     myList,
@@ -129,7 +136,6 @@ function App() {
     () =>
       calculateSimilarSongs(songs, seeds, {
         voicebankBonus,
-        limit: 100,
       }),
     [songs, seeds, voicebankBonus],
   );
@@ -248,8 +254,8 @@ function App() {
 
     if (seeds.length === 0) {
       return (
-        <div className="rounded-3xl border border-dashed border-violet-300 bg-gradient-to-br from-violet-500/5 to-fuchsia-500/5 px-6 py-14 text-center dark:border-violet-500/40">
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-500 to-fuchsia-500 text-white shadow-lg shadow-violet-500/25">
+        <div className="rounded-3xl border border-dashed border-violet-300 tint-bg px-6 py-14 text-center dark:tint-border">
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-500 to-fuchsia-500 text-white shadow-lg tint-shadow">
             <HeartIcon filled className="h-6 w-6" />
           </div>
           <p className="mt-4 text-sm font-black">
@@ -263,7 +269,7 @@ function App() {
           <button
             type="button"
             onClick={() => setMobileSidebarOpen(true)}
-            className="mx-auto mt-4 flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-violet-500 to-fuchsia-500 px-3 py-2 text-xs font-black text-white shadow-md shadow-violet-500/20 lg:hidden"
+            className="mx-auto mt-4 flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-violet-500 to-fuchsia-500 px-3 py-2 text-xs font-black text-white shadow-md tint-shadow lg:hidden"
           >
             <SparklesIcon className="h-3.5 w-3.5" />
             シード曲を追加する
@@ -278,10 +284,10 @@ function App() {
           <SparklesIcon className="h-7 w-7 text-slate-400 dark:text-slate-500" />
         </div>
         <p className="mt-4 text-sm font-black">
-          類似曲が見つかりませんでした
+          マッチ率{RECOMMEND_MIN_MATCH_SCORE}%以上の類似曲が見つかりませんでした
         </p>
         <p className="mx-auto mt-1 max-w-sm text-xs leading-relaxed text-slate-500 dark:text-slate-400">
-          シード曲のタグが少ない可能性があります。別の曲を追加してみてください。
+          マッチ率{RECOMMEND_MIN_MATCH_SCORE}%以上の曲が見つかりませんでした。シード曲を追加するか、音声ライブラリ一致ボーナスを調整してみてください。
         </p>
         <button
           type="button"
@@ -302,6 +308,8 @@ function App() {
         onChangeMode={handleChangeMode}
         theme={theme}
         onToggleTheme={toggleTheme}
+        accentTheme={accentTheme}
+        onChangeAccentTheme={setAccentTheme}
         myListCount={myList.length}
         onOpenMyList={() => setMyListOpen(true)}
       />
@@ -383,6 +391,12 @@ function App() {
                       ? `シード${seeds.length}曲のタグ・BPM・音声ライブラリから算出`
                       : 'シード曲を追加すると類似度順に表示します'}
               </p>
+              {!isFilterMode && seeds.length > 0 && (
+                <span className="mt-1.5 inline-flex items-center gap-1 rounded-full border tint-border tint-bg px-2 py-0.5 text-[10px] font-bold text-cyan-700 dark:tint-border dark:text-cyan-300">
+                  <SparklesIcon className="h-2.5 w-2.5" />
+                  {`マッチ率${RECOMMEND_MIN_MATCH_SCORE}%以上・上位最大${RECOMMEND_MAX_RESULTS}曲を表示中`}
+                </span>
+              )}
             </div>
 
             <div className="flex items-center gap-2">
@@ -505,7 +519,7 @@ function App() {
 
       <footer className="border-t border-slate-200 py-6 dark:border-slate-800">
         <div className="mx-auto flex max-w-7xl flex-col gap-1 px-4 text-xs text-slate-500 dark:text-slate-400 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-          <p>VocaDig — Phase 3: Mini Player × MyList Share</p>
+          <p>VocaDig — Phase 5: 推しカラーテーマ × レコメンド精度調整</p>
           <p>データ出典: VocaDB (https://vocadb.net)</p>
         </div>
       </footer>

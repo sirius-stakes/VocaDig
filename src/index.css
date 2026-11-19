@@ -9,6 +9,249 @@
     Meiryo, system-ui, sans-serif;
 }
 
+/*
+ * 音声ライブラリ別の推しカラーテーマ。
+ * <html data-accent="miku"> のように属性を切り替えることで、
+ * 以下で定義した CSS 変数がアプリ全体のアクセント色に反映される。
+ * 既定値は初音ミク（miku）テーマ。
+ */
+:root {
+  --accent-50: #ecfeff;
+  --accent-100: #cffafe;
+  --accent-200: #a5f3fc;
+  --accent-300: #67e8f9;
+  --accent-400: #22d3ee;
+  --accent-500: #06b6d4;
+  --accent-600: #0891b2;
+  --accent-700: #0e7490;
+  --accent-800: #155e75;
+  --accent-900: #164e63;
+  --accent-950: #083344;
+
+  /* ライトモード用の半透明アクセント（背景・枠線・リング） */
+  --accent-soft: color-mix(in srgb, var(--accent-500) 12%, transparent);
+  --accent-soft-strong: color-mix(in srgb, var(--accent-500) 20%, transparent);
+  --accent-border-soft: color-mix(in srgb, var(--accent-500) 35%, transparent);
+  --accent-border-strong: color-mix(
+    in srgb,
+    var(--accent-500) 60%,
+    transparent
+  );
+  --accent-ring: color-mix(in srgb, var(--accent-500) 25%, transparent);
+  --accent-shadow: color-mix(in srgb, var(--accent-500) 30%, transparent);
+  --accent-gradient: linear-gradient(
+    120deg,
+    var(--accent-500),
+    var(--accent-600)
+  );
+
+  /*
+   * Tailwind の cyan / teal / violet / fuchsia ユーティリティを
+   * 推しカラー変数へ接続する。
+   * 塗りつぶしボタンでも白文字のコントラストを保てるよう、
+   * 500/600 系は一段濃い 700/800 系へマッピングしている。
+   */
+  --color-cyan-50: var(--accent-50);
+  --color-cyan-100: var(--accent-100);
+  --color-cyan-200: var(--accent-200);
+  --color-cyan-300: var(--accent-300);
+  --color-cyan-400: var(--accent-400);
+  --color-cyan-500: var(--accent-700);
+  --color-cyan-600: var(--accent-800);
+  --color-cyan-700: var(--accent-800);
+  --color-cyan-800: var(--accent-900);
+  --color-cyan-900: var(--accent-950);
+  --color-cyan-950: var(--accent-950);
+
+  --color-teal-50: var(--accent-50);
+  --color-teal-100: var(--accent-100);
+  --color-teal-200: var(--accent-200);
+  --color-teal-300: var(--accent-300);
+  --color-teal-400: var(--accent-400);
+  --color-teal-500: color-mix(
+    in srgb,
+    var(--accent-600) 40%,
+    var(--accent-800)
+  );
+  --color-teal-600: var(--accent-700);
+  --color-teal-700: var(--accent-800);
+  --color-teal-800: var(--accent-900);
+  --color-teal-900: var(--accent-950);
+  --color-teal-950: var(--accent-950);
+
+  --color-violet-50: var(--accent-50);
+  --color-violet-100: var(--accent-100);
+  --color-violet-200: var(--accent-200);
+  --color-violet-300: var(--accent-300);
+  --color-violet-400: var(--accent-400);
+  --color-violet-500: var(--accent-700);
+  --color-violet-600: var(--accent-800);
+  --color-violet-700: var(--accent-800);
+  --color-violet-800: var(--accent-900);
+  --color-violet-900: var(--accent-950);
+  --color-violet-950: var(--accent-950);
+
+  --color-fuchsia-50: var(--accent-50);
+  --color-fuchsia-100: var(--accent-100);
+  --color-fuchsia-200: var(--accent-200);
+  --color-fuchsia-300: var(--accent-300);
+  --color-fuchsia-400: var(--accent-400);
+  --color-fuchsia-500: color-mix(
+    in srgb,
+    var(--accent-600) 40%,
+    var(--accent-800)
+  );
+  --color-fuchsia-600: var(--accent-700);
+  --color-fuchsia-700: var(--accent-800);
+  --color-fuchsia-800: var(--accent-900);
+  --color-fuchsia-900: var(--accent-950);
+  --color-fuchsia-950: var(--accent-950);
+}
+
+/* 重音テト: クリムゾン・レッド */
+html[data-accent='teto'] {
+  --accent-50: #fff1f2;
+  --accent-100: #ffe4e6;
+  --accent-200: #fecdd3;
+  --accent-300: #fda4af;
+  --accent-400: #fb7185;
+  --accent-500: #e11d48;
+  --accent-600: #be123c;
+  --accent-700: #9f1239;
+  --accent-800: #881337;
+  --accent-900: #4c0519;
+  --accent-950: #4c0519;
+}
+
+/* 鏡音リン・レン: アンバー・イエロー */
+html[data-accent='rinlen'] {
+  --accent-50: #fffbeb;
+  --accent-100: #fef3c7;
+  --accent-200: #fde68a;
+  --accent-300: #fcd34d;
+  --accent-400: #fbbf24;
+  --accent-500: #f59e0b;
+  --accent-600: #d97706;
+  --accent-700: #b45309;
+  --accent-800: #92400e;
+  --accent-900: #78350f;
+  --accent-950: #451a03;
+}
+
+/* 巡音ルカ: ピンク・ローズ */
+html[data-accent='luka'] {
+  --accent-50: #fdf2f8;
+  --accent-100: #fce7f3;
+  --accent-200: #fbcfe8;
+  --accent-300: #f9a8d4;
+  --accent-400: #f472b6;
+  --accent-500: #ec4899;
+  --accent-600: #db2777;
+  --accent-700: #be185d;
+  --accent-800: #9d174d;
+  --accent-900: #831843;
+  --accent-950: #500724;
+}
+
+/* 可不 KAFU: インディゴ・ブルー */
+html[data-accent='kafu'] {
+  --accent-50: #eef2ff;
+  --accent-100: #e0e7ff;
+  --accent-200: #c7d2fe;
+  --accent-300: #a5b4fc;
+  --accent-400: #818cf8;
+  --accent-500: #6366f1;
+  --accent-600: #4f46e5;
+  --accent-700: #4338ca;
+  --accent-800: #3730a3;
+  --accent-900: #312e81;
+  --accent-950: #1e1b4b;
+}
+
+/* v flower: バイオレット・パープル */
+html[data-accent='flower'] {
+  --accent-50: #f5f3ff;
+  --accent-100: #ede9fe;
+  --accent-200: #ddd6fe;
+  --accent-300: #c4b5fd;
+  --accent-400: #a78bfa;
+  --accent-500: #8b5cf6;
+  --accent-600: #7c3aed;
+  --accent-700: #6d28d9;
+  --accent-800: #5b21b6;
+  --accent-900: #4c1d95;
+  --accent-950: #2e1065;
+}
+
+/* GUMI: エメラルド・グリーン */
+html[data-accent='gumi'] {
+  --accent-50: #ecfdf5;
+  --accent-100: #d1fae5;
+  --accent-200: #a7f3d0;
+  --accent-300: #6ee7b7;
+  --accent-400: #34d399;
+  --accent-500: #10b981;
+  --accent-600: #059669;
+  --accent-700: #047857;
+  --accent-800: #065f46;
+  --accent-900: #064e3b;
+  --accent-950: #022c22;
+}
+
+/* ずんだもん: ライムグリーン */
+html[data-accent='zundamon'] {
+  --accent-50: #f7fee7;
+  --accent-100: #ecfccb;
+  --accent-200: #d9f99d;
+  --accent-300: #bef264;
+  --accent-400: #a3e635;
+  --accent-500: #84cc16;
+  --accent-600: #65a30d;
+  --accent-700: #4d7c0f;
+  --accent-800: #3f6212;
+  --accent-900: #365314;
+  --accent-950: #1a2e05;
+}
+
+/* ダークモードでは半透明アクセントを明るくして視認性を確保する */
+html.dark {
+  --accent-soft: color-mix(in srgb, var(--accent-400) 18%, transparent);
+  --accent-soft-strong: color-mix(in srgb, var(--accent-400) 28%, transparent);
+  --accent-border-soft: color-mix(in srgb, var(--accent-400) 45%, transparent);
+  --accent-border-strong: color-mix(in srgb, var(--accent-400) 65%, transparent);
+  --accent-ring: color-mix(in srgb, var(--accent-400) 30%, transparent);
+  --accent-shadow: color-mix(in srgb, var(--accent-400) 35%, transparent);
+}
+
+/*
+ * 半透明アクセント用のユーティリティ。
+ * Tailwind の `/opacity` 修飾子はビルド時に固定色へ展開されるため、
+ * テーマ切替に追従させる目的で CSS 変数版を用意している。
+ */
+@utility tint-bg {
+  background-color: var(--accent-soft);
+}
+
+@utility tint-bg-strong {
+  background-color: var(--accent-soft-strong);
+}
+
+@utility tint-border {
+  border-color: var(--accent-border-soft);
+}
+
+@utility tint-border-strong {
+  border-color: var(--accent-border-strong);
+}
+
+@utility tint-ring {
+  --tw-ring-color: var(--accent-ring);
+}
+
+@utility tint-shadow {
+  --tw-shadow-color: var(--accent-shadow);
+}
+
 html {
   color-scheme: light;
   scroll-behavior: smooth;
@@ -58,7 +301,7 @@ body {
   height: 18px;
   width: 18px;
   border-radius: 9999px;
-  border: 3px solid #06b6d4;
+  border: 3px solid var(--accent-500);
   background: #ffffff;
   box-shadow: 0 1px 4px rgb(15 23 42 / 0.25);
   cursor: grab;
@@ -70,7 +313,7 @@ body {
   height: 18px;
   width: 18px;
   border-radius: 9999px;
-  border: 3px solid #06b6d4;
+  border: 3px solid var(--accent-500);
   background: #ffffff;
   box-shadow: 0 1px 4px rgb(15 23 42 / 0.25);
   cursor: grab;
@@ -85,11 +328,11 @@ body {
 }
 
 .dual-range:focus-visible::-webkit-slider-thumb {
-  box-shadow: 0 0 0 4px rgb(6 182 212 / 0.25);
+  box-shadow: 0 0 0 4px var(--accent-ring);
 }
 
 .dual-range:focus-visible::-moz-range-thumb {
-  box-shadow: 0 0 0 4px rgb(6 182 212 / 0.25);
+  box-shadow: 0 0 0 4px var(--accent-ring);
 }
 
 /* サイドバーのスクロールバーを控えめにする */

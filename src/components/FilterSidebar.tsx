@@ -94,7 +94,7 @@ export function FilterSidebar({
         </button>
       </div>
 
-      <div className="rounded-2xl border border-cyan-500/25 bg-gradient-to-br from-cyan-500/10 to-teal-500/5 px-4 py-3">
+      <div className="rounded-2xl border tint-border tint-bg px-4 py-3">
         <p className="text-[10px] font-bold tracking-wide text-slate-500 dark:text-slate-400">
           現在のヒット
         </p>
@@ -120,7 +120,7 @@ export function FilterSidebar({
               onChange({ ...value, keyword: event.target.value })
             }
             placeholder="曲名・P名・タグで検索"
-            className="w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 pl-9 pr-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100 dark:placeholder:text-slate-500 dark:focus:border-cyan-500"
+            className="w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 pl-9 pr-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-cyan-400 focus:ring-2 focus:tint-ring dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100 dark:placeholder:text-slate-500 dark:focus:border-cyan-500"
           />
         </div>
       </section>
@@ -186,7 +186,7 @@ export function FilterSidebar({
                         title={tag.enName}
                         className={`rounded-full border px-2.5 py-1 text-[11px] font-bold transition ${
                           selected
-                            ? 'border-cyan-500 bg-cyan-500/15 text-cyan-700 shadow-sm shadow-cyan-500/10 dark:border-cyan-400 dark:bg-cyan-500/20 dark:text-cyan-300'
+                            ? 'border-cyan-500 tint-bg text-cyan-700 shadow-sm tint-shadow dark:border-cyan-400 dark:tint-bg-strong dark:text-cyan-300'
                             : 'border-slate-200 bg-white text-slate-600 hover:border-cyan-300 hover:text-cyan-700 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-300 dark:hover:border-cyan-600 dark:hover:text-cyan-300'
                         }`}
                       >
@@ -204,7 +204,7 @@ export function FilterSidebar({
       <section className={sectionClass}>
         <div className="flex items-center justify-between">
           <p className={sectionTitleClass}>BPMレンジ</p>
-          <p className="rounded-md bg-teal-500/10 px-2 py-1 text-[11px] font-black tabular-nums text-teal-700 dark:text-teal-300">
+          <p className="rounded-md tint-bg px-2 py-1 text-[11px] font-black tabular-nums text-teal-700 dark:text-teal-300">
             {value.bpmRange[0]} – {value.bpmRange[1]}
           </p>
         </div>

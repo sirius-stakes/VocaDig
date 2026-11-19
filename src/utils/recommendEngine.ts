@@ -17,6 +17,10 @@ const BPM_BONUS_MAX = 12;
 const VOICEBANK_BONUS = 8;
 /** カードに表示する一致タグの最大件数 */
 const MATCHED_TAG_LIMIT = 8;
+/** レコメンドに残す最低マッチ率（%） */
+export const RECOMMEND_MIN_MATCH_SCORE = 30;
+/** レコメンド結果の最大件数 */
+export const RECOMMEND_MAX_RESULTS = 50;
 
 /**
  * 類似度計算では音楽的特徴ではないメタデータタグを除外する。
@@ -259,7 +263,7 @@ export function buildTasteProfile(seedSongs: VocaSong[]): TasteProfile {
 export interface CalculateSimilarOptions {
   /** 同一音声ライブラリへのボーナスを有効にするか */
   voicebankBonus?: boolean;
-  /** 返却する最大件数（既定: 60） */
+  /** 返却する最大件数（既定・上限: 50） */
   limit?: number;
 }
 
@@ -268,6 +272,7 @@ export interface CalculateSimilarOptions {
  * - タグ一致度（0〜100%に正規化）
  * - シード平均BPMとの近接ボーナス（±15 BPM以内）
  * - 同一音声ライブラリボーナス（ON/OFF可）
+ * - マッチ率30%未満は除外し、スコア降順で最大50曲に制限
  */
 export function calculateSimilarSongs(
   songs: VocaSong[],
@@ -288,7 +293,10 @@ export function calculateSimilarSongs(
   if (totalWeight <= 0) return [];
 
   const useVoicebankBonus = options.voicebankBonus ?? true;
-  const limit = options.limit ?? 60;
+  const limit = Math.min(
+    Math.max(0, options.limit ?? RECOMMEND_MAX_RESULTS),
+    RECOMMEND_MAX_RESULTS,
+  );
   const results: RecommendedSong[] = [];
 
   for (const song of songs) {
@@ -324,6 +332,9 @@ export function calculateSimilarSongs(
 
     const rawScore = tagScore + bpmBonus + voicebankScore;
     const matchScore = Math.round(Math.min(100, rawScore) * 10) / 10;
+
+    // マッチ率30%未満の楽曲は推薦結果から除外する
+    if (matchScore < RECOMMEND_MIN_MATCH_SCORE) continue;
 
     results.push({
       song,
