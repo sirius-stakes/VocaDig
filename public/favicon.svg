@@ -1,35 +1,39 @@
-<svg
-  xmlns="http://www.w3.org/2000/svg"
-  viewBox="0 0 64 64"
-  role="img"
-  aria-label="VocaDig"
->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="VocaDig">
   <defs>
-    <linearGradient id="bg" x1="8" y1="4" x2="56" y2="60" gradientUnits="userSpaceOnUse">
+    <linearGradient id="glass" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#22d3ee" />
-      <stop offset="1" stop-color="#0d9488" />
+      <stop offset="0.55" stop-color="#06b6d4" />
+      <stop offset="1" stop-color="#0891b2" />
     </linearGradient>
-    <linearGradient id="wave" x1="12" y1="40" x2="52" y2="24" gradientUnits="userSpaceOnUse">
+    <linearGradient id="sheen" x1="0" y1="0" x2="0" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.5" />
+      <stop offset="0.5" stop-color="#ffffff" stop-opacity="0.05" />
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0" />
+    </linearGradient>
+    <linearGradient id="letter" x1="0" y1="16" x2="0" y2="50" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#ffffff" />
-      <stop offset="1" stop-color="#cffafe" />
+      <stop offset="1" stop-color="#ecfeff" />
     </linearGradient>
+    <clipPath id="panel">
+      <rect x="6" y="6" width="52" height="52" rx="14" />
+    </clipPath>
   </defs>
-  <rect width="64" height="64" rx="16" fill="#0f172a" />
-  <rect x="4" y="4" width="56" height="56" rx="13" fill="url(#bg)" />
-  <g fill="url(#wave)">
-    <rect x="14" y="28" width="4.5" height="12" rx="2.25" />
-    <rect x="22" y="22" width="4.5" height="24" rx="2.25" />
-    <rect x="30" y="15" width="4.5" height="34" rx="2.25" />
-    <rect x="38" y="24" width="4.5" height="20" rx="2.25" />
-    <rect x="46" y="30" width="4.5" height="9" rx="2.25" />
+
+  <!-- 土台（ガラスの縁取り） -->
+  <rect width="64" height="64" rx="17" fill="#0f172a" />
+
+  <!-- クリアアクリル板：ミクシアンのグラデーション＋内側ハイライト -->
+  <g clip-path="url(#panel)">
+    <rect x="6" y="6" width="52" height="52" rx="14" fill="url(#glass)" />
+    <rect x="6" y="6" width="52" height="52" rx="14" fill="url(#sheen)" />
+    <rect x="7.5" y="7.5" width="49" height="1.6" rx="0.8" fill="#ffffff" fill-opacity="0.75" />
+    <rect x="7.5" y="55" width="49" height="1.2" rx="0.6" fill="#0f172a" fill-opacity="0.18" />
   </g>
-  <circle cx="46" cy="19" r="7.5" fill="#0f172a" fill-opacity="0.85" />
-  <circle cx="46" cy="19" r="7.5" fill="none" stroke="#ffffff" stroke-width="2.5" />
-  <path
-    d="M51.5 24.5 57 30"
-    fill="none"
-    stroke="#ffffff"
-    stroke-width="3"
-    stroke-linecap="round"
-  />
+
+  <!-- 1px の半透明白枠線＋内側の細い陰影線（外側の発光は付けない） -->
+  <rect x="6" y="6" width="52" height="52" rx="14" fill="none" stroke="#ffffff" stroke-opacity="0.32" stroke-width="1" />
+  <rect x="7" y="7" width="50" height="50" rx="13" fill="none" stroke="#0f172a" stroke-opacity="0.12" stroke-width="1" />
+
+  <!-- シャープな白い「V」 -->
+  <path d="M14 16 L23 16 L32 38 L41 16 L50 16 L32 49 Z" fill="url(#letter)" />
 </svg>

@@ -73,3 +73,12 @@
 - 事前データ取得スクリプト（`scripts/fetch-vocadb.ts`）では、各リクエスト間に必ず **1,500ms 以上のスリープ** を入れ、`User-Agent` ヘッダーを付与し、429エラー時は指数バックオフ（10s→30s→60s）でリトライすること。
 - フロントエンドのリアルタイム検索（`src/utils/vocadbApi.ts`）では、**600ms のデバウンス**と**メモリキャッシュ**を必ず実装し、連続リクエストを防ぐこと。
 - 正規化済み楽曲データ型（`VocaSong`）をすべてのコンポーネント・スクリプトで厳密に共有すること。
+
+## 5. 本番URL・OGP／ファビコン構成（フェーズ10）
+- **本番URL:** `https://voca-dig.vercel.app`（OGP・Twitterカードの絶対URLはすべてこのドメインで統一する）。
+- **SNS・Discord共有時のプレビュー:** `index.html` の `<head>` で Open Graph（OGP）タグと Twitter Card タグを管理する。
+  - OGP: `og:type=website` / `og:site_name=VocaDig` / `og:title` / `og:description` / `og:url=https://voca-dig.vercel.app/` / `og:image=https://voca-dig.vercel.app/ogp.png` / `og:image:width=1200` / `og:image:height=630`（`og:locale=ja_JP` も併記）。
+  - Twitter Card: `twitter:card=summary_large_image` / `twitter:title` / `twitter:description` / `twitter:image=https://voca-dig.vercel.app/ogp.png`。
+  - 画像は `public/ogp.png`（1200×630 比率）を配置して配信する。未配置でもビルドを失敗させず、メタタグ記述は完了させる。
+- **ファビコン:** `public/favicon.svg` をブラウザタブ用アイコンとして使用し、`index.html` に `<link rel="icon" type="image/svg+xml" href="/favicon.svg" />`（および `apple-touch-icon`）を設定する。
+  - デザインはブランドカラーのミクシアン（`#06b6d4` / `#0891b2`）を基調とした角丸クリアアクリルガラス風アイコンに、シャープな白い「V」をあしらう。外側の発光シャドウは付けず、半透明白枠線と内側ハイライトで質感を表現する（フェーズ8のアクリル基準に準拠）。
