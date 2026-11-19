@@ -54,20 +54,17 @@ export function AccentThemePicker({
         aria-expanded={open}
         aria-label={`推しカラーを切り替える（現在: ${current.name}）`}
         title={`推しカラー: ${current.name}`}
-        className="glass-neutral flex h-10 items-center gap-1.5 rounded-xl px-2 text-xs font-bold sm:gap-2 sm:px-2.5"
+        className="glass-neutral flex h-9 w-9 shrink-0 items-center justify-center gap-0.5 rounded-full transition focus:outline-none focus-visible:border-[color:var(--accent-border-strong)] focus-visible:ring-2 focus-visible:ring-[color:var(--accent-ring)] sm:h-10 sm:w-10"
       >
         <span
           aria-hidden="true"
-          className="h-4 w-4 shrink-0 rounded-full shadow-sm ring-2 ring-white dark:ring-slate-900"
+          className="h-3.5 w-3.5 shrink-0 rounded-full shadow-sm ring-2 ring-white dark:ring-slate-900"
           style={{
             backgroundImage: `linear-gradient(135deg, ${current.primary}, ${current.secondary})`,
           }}
         />
-        <span className="hidden max-w-[5.5rem] truncate lg:inline">
-          {current.shortName}
-        </span>
         <ChevronDownIcon
-          className={`h-3.5 w-3.5 shrink-0 transition-transform ${
+          className={`h-3 w-3 shrink-0 transition-transform ${
             open ? 'rotate-180' : ''
           }`}
         />

@@ -485,8 +485,8 @@ export function SeedRecommendSidebar({
             </div>
           )}
 
-          <div className="glass-neutral mt-3 flex items-center justify-between gap-3 rounded-xl px-3 py-2.5">
-            <div>
+          <div className="glass-neutral mt-3 flex items-center justify-between gap-4 rounded-xl py-2.5 pl-3 pr-4">
+            <div className="min-w-0 flex-1">
               <p className="text-[11px] font-bold text-slate-700 dark:text-slate-200">
                 音声ライブラリ一致ボーナス
               </p>
@@ -500,15 +500,15 @@ export function SeedRecommendSidebar({
               aria-checked={voicebankBonus}
               aria-label="音声ライブラリ一致ボーナス"
               onClick={onToggleVoicebankBonus}
-              className={`relative h-5 w-9 shrink-0 rounded-full transition ${
+              className={`relative h-6 w-11 shrink-0 rounded-full border transition-colors ${
                 voicebankBonus
                   ? 'glass-accent-tab'
-                  : 'bg-slate-300/60 dark:bg-slate-700/60'
+                  : 'border-slate-300/70 bg-slate-300/60 dark:border-slate-600/70 dark:bg-slate-700/60'
               }`}
             >
               <span
-                className={`absolute top-0.5 h-4 w-4 rounded-full bg-white/95 shadow transition-transform ${
-                  voicebankBonus ? 'translate-x-[18px]' : 'translate-x-0.5'
+                className={`absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white/95 shadow-sm transition-transform ${
+                  voicebankBonus ? 'translate-x-5' : 'translate-x-0'
                 }`}
               />
             </button>
