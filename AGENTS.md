@@ -21,14 +21,30 @@
   - `useTheme.ts` が `<html data-accent="miku">` のように属性を付与し、`src/index.css` の CSS カスタムプロパティでアプリ全体のアクセント色を動的に切り替える。
   - `localStorage` キーは `vocadig-accent-theme`。対応IDは `miku`（デフォルト）/ `teto` / `rinlen` / `luka` / `kafu` / `flower` / `gumi` / `zundamon`。
   - ヘッダーには現在のテーマカラー丸バッジ付きの「推しカラー切替ポップオーバー」を配置する。
-- **カラーパレット（CSS変数ベース）:**
-  - ベース背景: ライト `bg-slate-50 text-slate-900` / ダーク `dark:bg-slate-950 dark:text-slate-100`
-  - カード・パネル: ライト `bg-white border-slate-200` / ダーク `dark:bg-slate-900 dark:border-slate-800`
-  - アクセント基準色: `--accent-500` / `--accent-600`（各テーマのイメージカラー）
-  - 塗りボタン・アクティブタブ: 白文字のコントラストを確保するため `--accent-700` / `--accent-800` を基本とする
-  - 半透明アクセント: `--accent-soft` / `--accent-soft-strong` / `--accent-border-soft` / `--accent-border-strong` / `--accent-ring` / `--accent-shadow`（ダークモードでは明度を上げて可読性を維持）。UIでは `tint-bg` / `tint-bg-strong` / `tint-border` / `tint-border-strong` / `tint-ring` / `tint-shadow` ユーティリティを使用する。
+- **カラーパレット（8色テーマ × 透明感グラスモーフィズム設計）:**
+  - ベース背景: ライト `bg-slate-50 text-slate-900` / ダーク `dark:bg-slate-950 dark:text-slate-100`。ルート要素には `.app-shell` を付与し、テーマカラーが3〜5%透過で淡く滲むラジアルグラデーションを重ねる。
+  - カード・サイドバー・ヘッダー: `.glass-panel`（ライト `bg-white/75 backdrop-blur-md`、ダーク `bg-slate-900/70 backdrop-blur-md` 相当）。不透明なベタ塗りのパネルは使用しない。
+  - 8テーマは `--accent-base`（メイン）と `--accent-sub`（サブ）の2色だけを定義する。透過トークンはすべて `color-mix(in srgb, ...)` で自動生成する。
+    - `--accent-bg-subtle`: 10%透過背景（カード内の淡い色づき・ホバー）
+    - `--accent-bg-soft`: 15%透過背景（選択中チップ・BPM／マッチ度バッジ・サブボタン）
+    - `--accent-bg-active`: 22%透過背景（アクティブタブ・主役ボタン）
+    - `--accent-border`: 35%透過ボーダー（通常の輪郭線）
+    - `--accent-border-strong`: 55%透過ボーダー（アクティブ・ホバー時の強調枠線）
+    - `--accent-text`: ライトは `--accent-800` 相当の濃色、ダークは `--accent-300` 相当の明色。背景の透過度に負けない可読性を確保する。
+    - `--accent-glow`: ライト12%／ダーク18%透過のシャドウ発光。要素の周囲に淡いグローを落とす。
+    - `--accent-ring`: フォーカスリング用の30%透過色。
+  - コンポーネント側は以下のクラスを一貫して使用する（100%不透明の塗り背景は禁止）。
+    - `.glass-accent-chip`: 選択中タグ・バッジ・カウント
+    - `.glass-accent-button`: 試聴・サブアクション・リンクボタン
+    - `.glass-accent-tab`: アクティブタブ・主役ボタン・トグルON
+    - `.glass-accent-overlay`: サムネイル上に重ねるマッチ度バッジ
+    - `.glass-neutral`: アクセントを使わない控えめなガラスボタン
+    - `.glass-input`: 検索入力・セレクト
+    - `.glass-accent-bar` / `.glass-progress-track`: スライダー・プロファイルバー
+  - 互換ユーティリティ `tint-bg` / `tint-bg-strong` / `tint-border` / `tint-border-strong` / `tint-ring` / `tint-shadow` は新トークンへ接続済み。
+  - 初音ミク（`miku`・デフォルト）は初期実装の透明感あるシアン／ティール系（`bg-cyan-500/15`、`border-cyan-500/35` 相当）と同一の見た目になるよう基準値を維持する。
   - Tailwind の `cyan` / `teal` / `violet` / `fuchsia` ユーティリティは `--color-*` を介して推しカラー変数へ接続済み。新規UIでもアクセント色はこれらのユーティリティまたは CSS 変数を使用し、固定のHEX値を直接書かないこと。
-  - 成功状態は `emerald`、削除・警告は `rose`、音声ライブラリ固有の識別色はインラインstyleのまま固定でよい。
+  - 成功状態は `emerald`、削除・警告は `rose`、音声ライブラリ固有の識別色はインラインstyleのまま固定でよい（いずれも透過背景＋透過ボーダーで表現する）。
 - **レスポンシブ:** PCは左サイドバー（320px）＋右メインエリアの2カラム、モバイルはドロワー/アコーディオン＋1カラムカード表示。
 
 ## 4. 外部API（VocaDB API）レート制限・安全性ルール

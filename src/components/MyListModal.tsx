@@ -135,10 +135,10 @@ export function MyListModal({
         className="absolute inset-0 h-full w-full cursor-default bg-slate-950/60 backdrop-blur-sm"
       />
 
-      <div className="relative flex max-h-[92vh] w-full max-w-2xl flex-col overflow-hidden rounded-t-3xl border border-slate-200 bg-slate-50 shadow-2xl dark:border-slate-800 dark:bg-slate-950 sm:rounded-3xl">
-        <div className="flex items-center justify-between gap-3 border-b border-slate-200 bg-white px-4 py-4 dark:border-slate-800 dark:bg-slate-900 sm:px-5">
+      <div className="glass-panel relative flex max-h-[92vh] w-full max-w-2xl flex-col overflow-hidden rounded-t-3xl border border-slate-200/70 shadow-2xl dark:border-slate-700/60 sm:rounded-3xl">
+        <div className="flex items-center justify-between gap-3 border-b border-slate-200/70 bg-white/50 px-4 py-4 backdrop-blur-md dark:border-slate-700/60 dark:bg-slate-900/50 sm:px-5">
           <div className="flex items-center gap-2.5">
-            <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-fuchsia-500 to-violet-500 text-white shadow-lg tint-shadow">
+            <span className="glass-accent-tab flex h-10 w-10 items-center justify-center rounded-2xl">
               <HeartIcon filled className="h-5 w-5" />
             </span>
             <div>
@@ -152,24 +152,24 @@ export function MyListModal({
             type="button"
             onClick={onClose}
             aria-label="閉じる"
-            className="rounded-lg border border-slate-200 bg-white p-2 text-slate-500 transition hover:text-slate-900 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-400 dark:hover:text-white"
+            className="glass-neutral rounded-lg p-2"
           >
             <XIcon className="h-4 w-4" />
           </button>
         </div>
 
         {songs.length > 0 && (
-          <div className="flex flex-wrap items-center gap-2 border-b border-slate-200 bg-slate-50 px-4 py-2.5 dark:border-slate-800 dark:bg-slate-950/60 sm:px-5">
+          <div className="flex flex-wrap items-center gap-2 border-b border-slate-200/70 bg-white/40 px-4 py-2.5 backdrop-blur-md dark:border-slate-700/60 dark:bg-slate-900/40 sm:px-5">
             <button
               type="button"
               onClick={onSeedAll}
               disabled={songs.length === 0}
-              className="flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-violet-500 to-fuchsia-500 px-3 py-2 text-[11px] font-black text-white shadow-md tint-shadow transition hover:from-violet-600 hover:to-fuchsia-600"
+              className="glass-accent-button flex items-center gap-1.5 rounded-xl px-3 py-2 text-[11px] font-black"
             >
               <SparklesIcon className="h-3.5 w-3.5" />
               まとめて推薦基準に追加
               {pendingSeedCount > 0 && (
-                <span className="rounded-full bg-white/25 px-1.5 py-0.5 text-[9px] tabular-nums">
+                <span className="glass-accent-chip rounded-full px-1.5 py-0.5 text-[9px] tabular-nums">
                   +{pendingSeedCount}
                 </span>
               )}
@@ -183,8 +183,8 @@ export function MyListModal({
         <div className="flex-1 overflow-y-auto px-4 py-4 sm:px-5">
           {songs.length === 0 ? (
             <div className="py-10 text-center">
-              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl tint-bg">
-                <HeartIcon className="h-7 w-7 text-fuchsia-600 dark:text-fuchsia-400" />
+              <div className="glass-accent-chip mx-auto flex h-14 w-14 items-center justify-center rounded-2xl">
+                <HeartIcon className="h-7 w-7" />
               </div>
               <p className="mt-4 text-sm font-bold">マイリストは空です</p>
               <p className="mx-auto mt-1 max-w-xs text-xs leading-relaxed text-slate-500 dark:text-slate-400">
@@ -200,11 +200,11 @@ export function MyListModal({
                 return (
                   <li
                     key={song.id}
-                    className="group rounded-2xl border border-slate-200 bg-white p-3 transition hover:border-fuchsia-300 dark:border-slate-800 dark:bg-slate-900 dark:hover:tint-border"
+                    className="glass-panel glass-panel-hover group rounded-2xl p-3"
                   >
                     <div className="flex items-start justify-between gap-2">
                       <div className="flex min-w-0 items-start gap-2.5">
-                        <div className="relative flex h-12 w-16 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-slate-100 dark:bg-slate-800">
+                        <div className="relative flex h-12 w-16 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-slate-100/70 dark:bg-slate-800/60">
                           {primaryPv ? (
                             <img
                               src={primaryPv.thumbUrl}
@@ -254,7 +254,7 @@ export function MyListModal({
                     </div>
 
                     <div className="mt-2 flex flex-wrap items-center gap-1">
-                      <span className="rounded tint-bg px-1.5 py-0.5 text-[10px] font-black text-teal-700 dark:text-teal-300">
+                      <span className="glass-accent-chip rounded px-1.5 py-0.5 text-[10px] font-black">
                         BPM {formatBpm(song.bpm)}
                       </span>
                       {voicebank && (
@@ -269,7 +269,7 @@ export function MyListModal({
                         <span
                           key={tag}
                           title={tag}
-                          className="max-w-[8rem] truncate rounded bg-slate-100 px-1.5 py-0.5 text-[10px] text-slate-500 dark:bg-slate-800 dark:text-slate-400"
+                          className="max-w-[8rem] truncate rounded bg-slate-100/70 px-1.5 py-0.5 text-[10px] text-slate-500 dark:bg-slate-800/60 dark:text-slate-400"
                         >
                           {tagDisplayName(tag)}
                         </span>
@@ -289,7 +289,7 @@ export function MyListModal({
                       <button
                         type="button"
                         onClick={() => onPlay(song)}
-                        className="flex flex-1 items-center justify-center gap-1.5 rounded-lg border border-cyan-300 px-2 py-1.5 text-[11px] font-bold text-cyan-600 transition hover:tint-bg dark:tint-border dark:text-cyan-300"
+                        className="glass-neutral flex flex-1 items-center justify-center gap-1.5 rounded-lg px-2 py-1.5 text-[11px] font-bold"
                       >
                         <PlayIcon className="h-3 w-3" />
                         試聴
@@ -298,10 +298,10 @@ export function MyListModal({
                         type="button"
                         onClick={() => onAddSeed(song)}
                         disabled={added}
-                        className={`flex flex-1 items-center justify-center gap-1.5 rounded-lg border px-2 py-1.5 text-[11px] font-bold transition ${
+                        className={`flex flex-1 items-center justify-center gap-1.5 rounded-lg px-2 py-1.5 text-[11px] font-bold transition ${
                           added
-                            ? 'cursor-default border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
-                            : 'border-violet-300 text-violet-600 hover:tint-bg dark:tint-border dark:text-violet-300'
+                            ? 'cursor-default border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 backdrop-blur-sm dark:text-emerald-400'
+                            : 'glass-neutral'
                         }`}
                       >
                         {added ? (
@@ -319,13 +319,13 @@ export function MyListModal({
           )}
         </div>
 
-        <div className="border-t border-slate-200 bg-white px-4 py-3 dark:border-slate-800 dark:bg-slate-900 sm:px-5">
+        <div className="border-t border-slate-200/70 bg-white/50 px-4 py-3 backdrop-blur-md dark:border-slate-700/60 dark:bg-slate-900/50 sm:px-5">
           <div className="flex flex-wrap items-center gap-2">
             <button
               type="button"
               onClick={() => void handleCopy()}
               disabled={songs.length === 0}
-              className="flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3 py-2 text-[11px] font-bold text-slate-600 transition hover:border-cyan-400 hover:text-cyan-600 disabled:cursor-not-allowed disabled:opacity-40 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-300 dark:hover:border-cyan-500 dark:hover:text-cyan-400"
+              className="glass-neutral flex items-center gap-1.5 rounded-xl px-3 py-2 text-[11px] font-bold disabled:cursor-not-allowed disabled:opacity-40"
             >
               <CopyIcon className="h-3.5 w-3.5" />
               テキストコピー
@@ -334,7 +334,7 @@ export function MyListModal({
               type="button"
               onClick={handleExport}
               disabled={songs.length === 0}
-              className="flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3 py-2 text-[11px] font-bold text-slate-600 transition hover:border-cyan-400 hover:text-cyan-600 disabled:cursor-not-allowed disabled:opacity-40 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-300 dark:hover:border-cyan-500 dark:hover:text-cyan-400"
+              className="glass-neutral flex items-center gap-1.5 rounded-xl px-3 py-2 text-[11px] font-bold disabled:cursor-not-allowed disabled:opacity-40"
             >
               <DownloadIcon className="h-3.5 w-3.5" />
               JSONエクスポート
@@ -344,7 +344,7 @@ export function MyListModal({
               <button
                 type="button"
                 onClick={onClear}
-                className="ml-auto flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3 py-2 text-[11px] font-bold text-slate-500 transition hover:border-rose-300 hover:text-rose-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-400 dark:hover:border-rose-500/60 dark:hover:text-rose-400"
+                className="ml-auto flex items-center gap-1.5 rounded-xl border border-rose-300/60 bg-rose-500/10 px-3 py-2 text-[11px] font-bold text-rose-500 backdrop-blur-sm transition hover:border-rose-400/70 hover:bg-rose-500/15 dark:border-rose-500/40 dark:text-rose-400"
               >
                 <TrashIcon className="h-3.5 w-3.5" />
                 すべて削除

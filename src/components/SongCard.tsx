@@ -49,7 +49,7 @@ export function SongCard({
   ].slice(0, 6);
 
   return (
-    <article className="group flex gap-3 rounded-2xl border border-slate-200 bg-white p-3 transition hover:border-cyan-300 hover:shadow-lg hover:tint-shadow dark:border-slate-800 dark:bg-slate-900 dark:hover:border-cyan-700 sm:gap-4 sm:p-4">
+    <article className="glass-panel glass-panel-hover group flex gap-3 rounded-2xl p-3 sm:gap-4 sm:p-4">
       <div className="relative aspect-video w-28 shrink-0 self-start overflow-hidden rounded-xl bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-950 sm:w-40">
         {primaryPv && !imageFailed ? (
           <img
@@ -68,7 +68,7 @@ export function SongCard({
         )}
 
         {match && (
-          <span className="absolute left-1.5 top-1.5 rounded-lg bg-gradient-to-r from-violet-600 to-fuchsia-500 px-1.5 py-0.5 text-[10px] font-black text-white shadow-lg tint-shadow">
+          <span className="glass-accent-overlay absolute left-1.5 top-1.5 rounded-lg px-1.5 py-0.5 text-[10px] font-black">
             マッチ {Math.round(match.score)}%
           </span>
         )}
@@ -108,8 +108,8 @@ export function SongCard({
           <span
             className={`rounded-md px-1.5 py-0.5 text-[10px] font-black tabular-nums ${
               song.bpm !== null
-                ? 'tint-bg text-teal-700 dark:tint-bg dark:text-teal-300'
-                : 'bg-slate-100 text-slate-400 dark:bg-slate-800 dark:text-slate-500'
+                ? 'glass-accent-chip'
+                : 'bg-slate-100/70 text-slate-400 dark:bg-slate-800/60 dark:text-slate-500'
             }`}
           >
             BPM {formatBpm(song.bpm)}
@@ -131,7 +131,7 @@ export function SongCard({
             </span>
           ))}
           {extraVoicebankCount > 0 && (
-            <span className="rounded-md bg-slate-100 px-1.5 py-0.5 text-[10px] font-bold text-slate-500 dark:bg-slate-800 dark:text-slate-400">
+            <span className="rounded-md bg-slate-100/70 px-1.5 py-0.5 text-[10px] font-bold text-slate-500 dark:bg-slate-800/60 dark:text-slate-400">
               +{extraVoicebankCount}
             </span>
           )}
@@ -145,7 +145,7 @@ export function SongCard({
         {match && (
           <div className="mt-2 flex items-center gap-2">
             <div
-              className="h-1.5 flex-1 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800"
+              className="glass-progress-track h-1.5 flex-1 overflow-hidden rounded-full"
               role="progressbar"
               aria-label="レコメンドのマッチ度"
               aria-valuemin={0}
@@ -153,13 +153,13 @@ export function SongCard({
               aria-valuenow={Math.round(match.score)}
             >
               <div
-                className="h-full rounded-full bg-gradient-to-r from-cyan-500 to-teal-500"
+                className="glass-accent-bar h-full rounded-full"
                 style={{
                   width: `${Math.min(100, Math.max(0, match.score))}%`,
                 }}
               />
             </div>
-            <span className="shrink-0 text-[10px] font-black tabular-nums text-cyan-700 dark:text-cyan-300">
+            <span className="glass-accent-text shrink-0 text-[10px] font-black tabular-nums">
               {Math.round(match.score)}%
             </span>
           </div>
@@ -174,8 +174,8 @@ export function SongCard({
                 title={tag}
                 className={`max-w-[11rem] truncate rounded-full px-2 py-0.5 text-[10px] font-semibold ${
                   matched
-                    ? 'tint-bg text-violet-700 ring-1 tint-ring dark:tint-bg-strong dark:text-violet-300'
-                    : 'bg-slate-100 text-slate-500 dark:bg-slate-800/80 dark:text-slate-400'
+                    ? 'glass-accent-chip'
+                    : 'bg-slate-100/70 text-slate-500 dark:bg-slate-800/60 dark:text-slate-400'
                 }`}
               >
                 {tagDisplayName(tag)}
@@ -191,17 +191,15 @@ export function SongCard({
               onClick={() => onPlay(song)}
               aria-label={`${song.title}を試聴`}
               aria-pressed={isPlaying}
-              className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[11px] font-black shadow-sm transition ${
-                isPlaying
-                  ? 'bg-teal-600 text-white tint-shadow hover:bg-teal-700'
-                  : 'bg-cyan-500 text-white tint-shadow hover:bg-cyan-600'
+              className={`glass-accent-button flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[11px] font-black ${
+                isPlaying ? 'glass-accent-tab' : ''
               }`}
             >
               <PlayIcon className="h-3 w-3" />
               {isPlaying ? '再生中' : '試聴'}
             </button>
           ) : (
-            <span className="flex items-center gap-1.5 rounded-lg bg-slate-100 px-2.5 py-1.5 text-[11px] font-bold text-slate-400 dark:bg-slate-800 dark:text-slate-500">
+            <span className="flex items-center gap-1.5 rounded-lg bg-slate-100/70 px-2.5 py-1.5 text-[11px] font-bold text-slate-400 dark:bg-slate-800/60 dark:text-slate-500">
               <PlayIcon className="h-3 w-3" />
               PVなし
             </span>
@@ -216,10 +214,10 @@ export function SongCard({
                 ? `${song.title}は推薦基準に追加済み`
                 : `${song.title}を推薦基準に追加`
             }
-            className={`flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-[11px] font-bold transition ${
+            className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[11px] font-bold ${
               isSeed
-                ? 'cursor-default border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
-                : 'border-slate-200 text-slate-600 hover:border-violet-400 hover:text-violet-600 dark:border-slate-700 dark:text-slate-300 dark:hover:border-violet-500 dark:hover:text-violet-300'
+                ? 'cursor-default border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 backdrop-blur-sm dark:text-emerald-400'
+                : 'glass-neutral'
             }`}
           >
             {isSeed ? (
@@ -239,10 +237,10 @@ export function SongCard({
                 ? `${song.title}をマイリストから削除`
                 : `${song.title}をマイリストに追加`
             }
-            className={`ml-auto flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-[11px] font-bold transition ${
+            className={`ml-auto flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[11px] font-bold ${
               isInMyList
-                ? 'border-fuchsia-400 tint-bg text-fuchsia-600 dark:tint-border-strong dark:text-fuchsia-400'
-                : 'border-slate-200 text-slate-500 hover:border-fuchsia-300 hover:text-fuchsia-500 dark:border-slate-700 dark:text-slate-400 dark:hover:tint-border-strong dark:hover:text-fuchsia-400'
+                ? 'glass-accent-chip'
+                : 'glass-neutral'
             }`}
           >
             <HeartIcon filled={isInMyList} className="h-3 w-3" />

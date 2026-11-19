@@ -230,9 +230,9 @@ function App() {
   const renderEmptyState = () => {
     if (isFilterMode) {
       return (
-        <div className="rounded-3xl border border-dashed border-slate-300 bg-white px-6 py-14 text-center dark:border-slate-700 dark:bg-slate-900">
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 dark:bg-slate-800">
-            <SearchIcon className="h-7 w-7 text-slate-400 dark:text-slate-500" />
+        <div className="glass-panel rounded-3xl border border-dashed border-slate-300/80 px-6 py-14 text-center dark:border-slate-700/80">
+          <div className="glass-accent-chip mx-auto flex h-14 w-14 items-center justify-center rounded-2xl">
+            <SearchIcon className="h-7 w-7" />
           </div>
           <p className="mt-4 text-sm font-black">
             条件に一致する曲が見つかりませんでした
@@ -243,7 +243,7 @@ function App() {
           <button
             type="button"
             onClick={handleResetFilter}
-            className="mx-auto mt-4 flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-bold text-slate-600 transition hover:border-cyan-400 hover:text-cyan-600 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-300 dark:hover:border-cyan-500 dark:hover:text-cyan-400"
+            className="glass-neutral mx-auto mt-4 flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-bold"
           >
             <ResetIcon className="h-3.5 w-3.5" />
             条件をリセット
@@ -254,8 +254,8 @@ function App() {
 
     if (seeds.length === 0) {
       return (
-        <div className="rounded-3xl border border-dashed border-violet-300 tint-bg px-6 py-14 text-center dark:tint-border">
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-500 to-fuchsia-500 text-white shadow-lg tint-shadow">
+        <div className="glass-accent-chip rounded-3xl border border-dashed border-[color:var(--accent-border)] px-6 py-14 text-center">
+          <div className="glass-accent-tab mx-auto flex h-14 w-14 items-center justify-center rounded-2xl">
             <HeartIcon filled className="h-6 w-6" />
           </div>
           <p className="mt-4 text-sm font-black">
@@ -269,7 +269,7 @@ function App() {
           <button
             type="button"
             onClick={() => setMobileSidebarOpen(true)}
-            className="mx-auto mt-4 flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-violet-500 to-fuchsia-500 px-3 py-2 text-xs font-black text-white shadow-md tint-shadow lg:hidden"
+            className="glass-accent-button mx-auto mt-4 flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-black lg:hidden"
           >
             <SparklesIcon className="h-3.5 w-3.5" />
             シード曲を追加する
@@ -279,9 +279,9 @@ function App() {
     }
 
     return (
-      <div className="rounded-3xl border border-dashed border-slate-300 bg-white px-6 py-14 text-center dark:border-slate-700 dark:bg-slate-900">
-        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 dark:bg-slate-800">
-          <SparklesIcon className="h-7 w-7 text-slate-400 dark:text-slate-500" />
+      <div className="glass-panel rounded-3xl border border-dashed border-slate-300/80 px-6 py-14 text-center dark:border-slate-700/80">
+        <div className="glass-accent-chip mx-auto flex h-14 w-14 items-center justify-center rounded-2xl">
+          <SparklesIcon className="h-7 w-7" />
         </div>
         <p className="mt-4 text-sm font-black">
           マッチ率{RECOMMEND_MIN_MATCH_SCORE}%以上の類似曲が見つかりませんでした
@@ -292,7 +292,7 @@ function App() {
         <button
           type="button"
           onClick={handleClearSeeds}
-          className="mx-auto mt-4 flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-bold text-slate-600 transition hover:border-rose-300 hover:text-rose-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-300"
+          className="glass-neutral mx-auto mt-4 flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-bold"
         >
           <ResetIcon className="h-3.5 w-3.5" />
           シード曲をクリア
@@ -302,7 +302,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 transition-colors dark:bg-slate-950 dark:text-slate-100">
+    <div className="app-shell min-h-screen text-slate-900 transition-colors dark:text-slate-100">
       <Header
         mode={mode}
         onChangeMode={handleChangeMode}
@@ -328,7 +328,7 @@ function App() {
           aria-label={isFilterMode ? '条件ディグのフィルター' : '類似レコメンドの設定'}
           className={
             mobileSidebarOpen
-              ? 'fixed inset-y-0 left-0 z-50 w-[88%] max-w-sm overflow-y-auto border-r border-slate-200 bg-slate-50 p-4 shadow-2xl dark:border-slate-800 dark:bg-slate-950 lg:sticky lg:top-20 lg:z-auto lg:max-h-[calc(100vh-7rem)] lg:w-80 lg:max-w-none lg:shrink-0 lg:overflow-y-auto lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none'
+              ? 'fixed inset-y-0 left-0 z-50 w-[88%] max-w-sm overflow-y-auto border-r border-slate-200/70 bg-white/85 p-4 shadow-2xl backdrop-blur-xl dark:border-slate-800/70 dark:bg-slate-950/85 lg:sticky lg:top-20 lg:z-auto lg:max-h-[calc(100vh-7rem)] lg:w-80 lg:max-w-none lg:shrink-0 lg:overflow-y-auto lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none lg:backdrop-blur-none'
               : 'hidden lg:sticky lg:top-20 lg:block lg:max-h-[calc(100vh-7rem)] lg:w-80 lg:shrink-0 lg:overflow-y-auto'
           }
         >
@@ -341,7 +341,7 @@ function App() {
                 type="button"
                 onClick={() => setMobileSidebarOpen(false)}
                 aria-label="閉じる"
-                className="rounded-lg border border-slate-200 bg-white p-2 text-slate-500 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-400"
+                className="glass-neutral rounded-lg p-2"
               >
                 <XIcon className="h-4 w-4" />
               </button>
@@ -352,13 +352,7 @@ function App() {
 
         <main className="min-w-0 flex-1">
           <div className="mb-4">
-            <p
-              className={`text-[10px] font-black tracking-[0.22em] ${
-                isFilterMode
-                  ? 'text-cyan-600 dark:text-cyan-400'
-                  : 'text-violet-600 dark:text-violet-400'
-              }`}
-            >
+            <p className="glass-accent-text text-[10px] font-black tracking-[0.22em]">
               VOCADIG / {copy.eyebrow}
             </p>
             <h1 className="mt-1 text-xl font-black tracking-tight sm:text-2xl">
@@ -369,7 +363,7 @@ function App() {
             </p>
           </div>
 
-          <div className="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 dark:border-slate-800 dark:bg-slate-900">
+          <div className="glass-panel mb-4 flex flex-wrap items-center justify-between gap-3 rounded-2xl px-4 py-3">
             <div className="min-w-0">
               <h2 className="text-sm font-black">
                 {loading
@@ -392,7 +386,7 @@ function App() {
                       : 'シード曲を追加すると類似度順に表示します'}
               </p>
               {!isFilterMode && seeds.length > 0 && (
-                <span className="mt-1.5 inline-flex items-center gap-1 rounded-full border tint-border tint-bg px-2 py-0.5 text-[10px] font-bold text-cyan-700 dark:tint-border dark:text-cyan-300">
+                <span className="glass-accent-chip mt-1.5 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold">
                   <SparklesIcon className="h-2.5 w-2.5" />
                   {`マッチ率${RECOMMEND_MIN_MATCH_SCORE}%以上・上位最大${RECOMMEND_MAX_RESULTS}曲を表示中`}
                 </span>
@@ -403,7 +397,7 @@ function App() {
               <button
                 type="button"
                 onClick={() => setMobileSidebarOpen(true)}
-                className="flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-bold text-slate-600 transition hover:border-cyan-400 hover:text-cyan-600 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-300 dark:hover:border-cyan-500 dark:hover:text-cyan-400 lg:hidden"
+                className="glass-neutral flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-bold lg:hidden"
               >
                 <SlidersIcon className="h-3.5 w-3.5" />
                 {isFilterMode ? '条件' : 'シード'}
@@ -424,7 +418,7 @@ function App() {
                           .value as SearchFilterState['sortBy'],
                       })
                     }
-                    className="appearance-none rounded-xl border border-slate-200 bg-white py-2 pl-3 pr-8 text-xs font-bold text-slate-600 outline-none transition focus:border-cyan-400 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-300 dark:focus:border-cyan-500"
+                    className="glass-input appearance-none rounded-xl py-2 pl-3 pr-8 text-xs font-bold"
                   >
                     {SORT_OPTIONS.map((option) => (
                       <option key={option.value} value={option.value}>
@@ -443,19 +437,19 @@ function App() {
               {[0, 1, 2, 3, 4].map((index) => (
                 <div
                   key={index}
-                  className="flex animate-pulse gap-4 rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900"
+                  className="glass-panel flex animate-pulse gap-4 rounded-2xl p-4"
                 >
-                  <div className="aspect-video w-28 shrink-0 rounded-xl bg-slate-200 dark:bg-slate-800 sm:w-40" />
+                  <div className="aspect-video w-28 shrink-0 rounded-xl bg-slate-200/60 dark:bg-slate-800/60 sm:w-40" />
                   <div className="flex-1 space-y-2 py-1">
-                    <div className="h-4 w-2/3 rounded bg-slate-200 dark:bg-slate-800" />
-                    <div className="h-3 w-1/3 rounded bg-slate-100 dark:bg-slate-800/60" />
-                    <div className="h-5 w-1/2 rounded bg-slate-100 dark:bg-slate-800/60" />
+                    <div className="h-4 w-2/3 rounded bg-slate-200/60 dark:bg-slate-800/60" />
+                    <div className="h-3 w-1/3 rounded bg-slate-100/60 dark:bg-slate-800/40" />
+                    <div className="h-5 w-1/2 rounded bg-slate-100/60 dark:bg-slate-800/40" />
                   </div>
                 </div>
               ))}
             </div>
           ) : error ? (
-            <div className="rounded-3xl border border-rose-200 bg-white px-6 py-12 text-center dark:border-rose-500/30 dark:bg-slate-900">
+            <div className="glass-panel rounded-3xl border border-rose-200/70 px-6 py-12 text-center dark:border-rose-500/30">
               <p className="text-sm font-black text-rose-600 dark:text-rose-400">
                 楽曲データを読み込めませんでした
               </p>
@@ -465,7 +459,7 @@ function App() {
               <button
                 type="button"
                 onClick={reload}
-                className="mx-auto mt-4 flex items-center gap-1.5 rounded-xl bg-cyan-500 px-3 py-2 text-xs font-black text-white transition hover:bg-cyan-600"
+                className="glass-accent-button mx-auto mt-4 flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs font-black"
               >
                 <ResetIcon className="h-3.5 w-3.5" />
                 再読み込み
@@ -506,7 +500,7 @@ function App() {
                   <button
                     type="button"
                     onClick={() => setVisibleCount((count) => count + PAGE_SIZE)}
-                    className="rounded-xl border border-slate-200 bg-white px-5 py-2.5 text-xs font-black text-slate-600 transition hover:border-cyan-400 hover:text-cyan-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-cyan-500 dark:hover:text-cyan-400"
+                    className="glass-neutral rounded-xl px-5 py-2.5 text-xs font-black"
                   >
                     もっと見る（残り {remainingCount.toLocaleString('ja-JP')}曲）
                   </button>
@@ -517,9 +511,9 @@ function App() {
         </main>
       </div>
 
-      <footer className="border-t border-slate-200 py-6 dark:border-slate-800">
+      <footer className="border-t border-slate-200/70 py-6 dark:border-slate-800/70">
         <div className="mx-auto flex max-w-7xl flex-col gap-1 px-4 text-xs text-slate-500 dark:text-slate-400 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-          <p>VocaDig — Phase 5: 推しカラーテーマ × レコメンド精度調整</p>
+          <p>VocaDig — Phase 6: 透明感グラスモーフィズム × 8色推しカラーテーマ</p>
           <p>データ出典: VocaDB (https://vocadb.net)</p>
         </div>
       </footer>

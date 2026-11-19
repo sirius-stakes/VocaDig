@@ -54,7 +54,7 @@ export function AccentThemePicker({
         aria-expanded={open}
         aria-label={`推しカラーを切り替える（現在: ${current.name}）`}
         title={`推しカラー: ${current.name}`}
-        className="flex h-10 items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-2 text-xs font-bold text-slate-600 transition hover:border-cyan-400 hover:text-cyan-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-cyan-500 dark:hover:text-cyan-400 sm:gap-2 sm:px-2.5"
+        className="glass-neutral flex h-10 items-center gap-1.5 rounded-xl px-2 text-xs font-bold sm:gap-2 sm:px-2.5"
       >
         <span
           aria-hidden="true"
@@ -74,8 +74,8 @@ export function AccentThemePicker({
       </button>
 
       {open && (
-        <div className="absolute right-0 top-full z-50 mt-2 w-64 max-w-[calc(100vw-2rem)] overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl shadow-slate-950/15 dark:border-slate-800 dark:bg-slate-900">
-          <div className="border-b border-slate-200 px-3 py-2.5 dark:border-slate-800">
+        <div className="glass-panel absolute right-0 top-full z-50 mt-2 w-64 max-w-[calc(100vw-2rem)] overflow-hidden rounded-2xl border border-slate-200/70 shadow-2xl shadow-slate-950/20 dark:border-slate-700/60">
+          <div className="border-b border-slate-200/70 px-3 py-2.5 dark:border-slate-700/60">
             <p className="text-[10px] font-black tracking-[0.16em] text-slate-400 dark:text-slate-500">
               推しカラー
             </p>
@@ -103,8 +103,8 @@ export function AccentThemePicker({
                     }}
                     className={`flex w-full items-center gap-2.5 rounded-xl px-2.5 py-2 text-left transition ${
                       selected
-                        ? 'tint-bg text-cyan-700 dark:tint-bg dark:text-cyan-300'
-                        : 'text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800'
+                        ? 'glass-accent-chip'
+                        : 'glass-row-hover text-slate-600 dark:text-slate-300'
                     }`}
                   >
                     <span

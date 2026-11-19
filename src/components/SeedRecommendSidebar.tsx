@@ -30,8 +30,7 @@ interface SeedRecommendSidebarProps {
   onClearSeeds: () => void;
 }
 
-const sectionClass =
-  'rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900';
+const sectionClass = 'glass-panel rounded-2xl p-4';
 const sectionTitleClass =
   'text-[11px] font-black uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400';
 
@@ -65,8 +64,8 @@ function SongSearchRow({
       disabled={added}
       className={`flex w-full items-center gap-2 rounded-xl px-2.5 py-2 text-left transition ${
         added
-          ? 'cursor-default bg-slate-100/60 opacity-70 dark:bg-slate-800/40'
-          : 'hover:bg-cyan-50 dark:hover:tint-bg'
+          ? 'cursor-default bg-slate-100/50 opacity-70 dark:bg-slate-800/40'
+          : 'glass-row-hover'
       }`}
     >
       <div className="min-w-0 flex-1">
@@ -80,7 +79,7 @@ function SongSearchRow({
           <span className="mx-1.5 text-slate-300 dark:text-slate-600">·</span>
           BPM {formatBpm(song.bpm)}
           {source === 'vocadb' && (
-            <span className="ml-1.5 rounded tint-bg px-1 py-0.5 text-[9px] font-black text-violet-600 dark:text-violet-300">
+            <span className="glass-accent-chip ml-1.5 rounded px-1 py-0.5 text-[9px] font-black">
               VocaDB
             </span>
           )}
@@ -186,7 +185,7 @@ export function SeedRecommendSidebar({
     <div className="space-y-3">
       <div className="flex items-start justify-between gap-3 px-1">
         <div>
-          <p className="text-[10px] font-black tracking-[0.22em] text-violet-600 dark:text-violet-400">
+          <p className="glass-accent-text text-[10px] font-black tracking-[0.22em]">
             LIKE-TO-DIG
           </p>
           <h2 className="text-lg font-black tracking-tight">好きな曲から推薦</h2>
@@ -195,7 +194,7 @@ export function SeedRecommendSidebar({
           <button
             type="button"
             onClick={onClearSeeds}
-            className="flex items-center gap-1.5 rounded-lg border border-slate-200 px-2.5 py-1.5 text-[11px] font-bold text-slate-500 transition hover:border-rose-300 hover:text-rose-500 dark:border-slate-800 dark:text-slate-400 dark:hover:border-rose-500/60 dark:hover:text-rose-400"
+            className="glass-neutral flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[11px] font-bold"
           >
             <TrashIcon className="h-3.5 w-3.5" />
             クリア
@@ -221,7 +220,7 @@ export function SeedRecommendSidebar({
               }
             }}
             placeholder="曲名・P名で検索"
-            className="w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 pl-9 pr-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-violet-400 focus:ring-2 focus:tint-ring dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100 dark:placeholder:text-slate-500 dark:focus:border-violet-500"
+            className="glass-input w-full rounded-xl py-2.5 pl-9 pr-3 text-sm placeholder:text-slate-400 dark:placeholder:text-slate-500"
           />
         </div>
 
@@ -229,11 +228,11 @@ export function SeedRecommendSidebar({
           type="button"
           onClick={() => void handleVocaDbSearch()}
           disabled={apiLoading || trimmedQuery.length === 0}
-          className="mt-2 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-violet-500 to-fuchsia-500 px-3 py-2 text-[11px] font-black text-white shadow-md tint-shadow transition hover:from-violet-600 hover:to-fuchsia-600 disabled:cursor-not-allowed disabled:opacity-50"
+          className="glass-accent-button mt-2 flex w-full items-center justify-center gap-2 rounded-xl px-3 py-2 text-[11px] font-black disabled:cursor-not-allowed disabled:opacity-50"
         >
           {apiLoading ? (
             <>
-              <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-white/40 border-t-white" />
+              <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-[color:var(--accent-border)] border-t-[color:var(--accent-text)]" />
               VocaDBを検索中...
             </>
           ) : (
@@ -264,7 +263,7 @@ export function SeedRecommendSidebar({
                 ))}
               </div>
             ) : (
-              <p className="mt-1 rounded-xl bg-slate-50 px-3 py-2 text-[11px] leading-relaxed text-slate-500 dark:bg-slate-950 dark:text-slate-400">
+              <p className="mt-1 rounded-xl bg-white/50 px-3 py-2 text-[11px] leading-relaxed text-slate-500 backdrop-blur-sm dark:bg-slate-950/40 dark:text-slate-400">
                 ローカルに該当曲がありません。上のボタンからVocaDB全体を検索できます。
               </p>
             )}
@@ -276,14 +275,14 @@ export function SeedRecommendSidebar({
             {[0, 1, 2].map((index) => (
               <div
                 key={index}
-                className="h-10 animate-pulse rounded-xl bg-slate-100 dark:bg-slate-800"
+                className="h-10 animate-pulse rounded-xl bg-slate-200/60 dark:bg-slate-800/60"
               />
             ))}
           </div>
         )}
 
         {apiError && (
-          <p className="mt-3 rounded-xl border border-rose-200 bg-rose-50 px-3 py-2 text-[11px] font-medium leading-relaxed text-rose-600 dark:border-rose-500/30 dark:bg-rose-500/10 dark:text-rose-300">
+          <p className="mt-3 rounded-xl border border-rose-200/70 bg-rose-500/10 px-3 py-2 text-[11px] font-medium leading-relaxed text-rose-600 backdrop-blur-sm dark:border-rose-500/30 dark:bg-rose-500/10 dark:text-rose-300">
             {apiError}
           </p>
         )}
@@ -291,7 +290,7 @@ export function SeedRecommendSidebar({
         {!apiLoading && apiResults.length > 0 && (
           <div className="mt-3">
             <div className="flex items-center justify-between px-1">
-              <p className="text-[10px] font-bold text-violet-600 dark:text-violet-300">
+              <p className="glass-accent-text text-[10px] font-bold">
                 VocaDB検索結果
               </p>
               <span className="text-[10px] text-slate-400 dark:text-slate-500">
@@ -316,7 +315,7 @@ export function SeedRecommendSidebar({
           !apiError &&
           apiSearched &&
           apiResults.length === 0 && (
-            <p className="mt-3 rounded-xl bg-slate-50 px-3 py-2 text-[11px] text-slate-500 dark:bg-slate-950 dark:text-slate-400">
+            <p className="mt-3 rounded-xl bg-white/50 px-3 py-2 text-[11px] text-slate-500 backdrop-blur-sm dark:bg-slate-950/40 dark:text-slate-400">
               VocaDBでも該当曲が見つかりませんでした。表記を変えて試してください。
             </p>
           )}
@@ -325,7 +324,7 @@ export function SeedRecommendSidebar({
       <section className={sectionClass}>
         <div className="flex items-center justify-between">
           <p className={sectionTitleClass}>選択中のシード曲</p>
-          <span className="rounded-full tint-bg px-2 py-0.5 text-[10px] font-black text-violet-600 dark:text-violet-300">
+          <span className="glass-accent-chip rounded-full px-2 py-0.5 text-[10px] font-black">
             {seeds.length}曲
           </span>
         </div>
@@ -345,7 +344,7 @@ export function SeedRecommendSidebar({
             {seeds.map((song) => (
               <li
                 key={song.id}
-                className="rounded-xl border tint-border tint-bg p-2.5"
+                className="glass-accent-chip rounded-xl p-2.5"
               >
                 <div className="flex items-start justify-between gap-2">
                   <div className="min-w-0">
@@ -366,14 +365,14 @@ export function SeedRecommendSidebar({
                   </button>
                 </div>
                 <div className="mt-1.5 flex flex-wrap gap-1">
-                  <span className="rounded tint-bg px-1.5 py-0.5 text-[10px] font-black text-teal-700 dark:text-teal-300">
+                  <span className="glass-accent-chip rounded px-1.5 py-0.5 text-[10px] font-black">
                     BPM {formatBpm(song.bpm)}
                   </span>
                   {song.tags.slice(0, 3).map((tag) => (
                     <span
                       key={tag}
                       title={tag}
-                      className="max-w-[9rem] truncate rounded bg-slate-200/70 px-1.5 py-0.5 text-[10px] font-medium text-slate-600 dark:bg-slate-800 dark:text-slate-300"
+                      className="max-w-[9rem] truncate rounded bg-slate-200/50 px-1.5 py-0.5 text-[10px] font-medium text-slate-600 dark:bg-slate-800/60 dark:text-slate-300"
                     >
                       {tagDisplayName(tag)}
                     </span>
@@ -397,24 +396,24 @@ export function SeedRecommendSidebar({
       {profile && seeds.length > 0 && (
         <section className={sectionClass}>
           <div className="flex items-center gap-1.5">
-            <SparklesIcon className="h-3.5 w-3.5 text-violet-600 dark:text-violet-400" />
+            <SparklesIcon className="glass-accent-text h-3.5 w-3.5" />
             <p className={sectionTitleClass}>あなたの好みプロファイル</p>
           </div>
 
           <div className="mt-3 grid grid-cols-2 gap-2">
-            <div className="rounded-xl bg-slate-50 px-3 py-2 dark:bg-slate-950">
+            <div className="glass-accent-chip rounded-xl px-3 py-2">
               <p className="text-[10px] font-semibold text-slate-400 dark:text-slate-500">
                 平均BPM
               </p>
-              <p className="text-lg font-black tabular-nums text-teal-600 dark:text-teal-400">
+              <p className="glass-accent-text text-lg font-black tabular-nums">
                 {profile.averageBpm ?? '---'}
               </p>
             </div>
-            <div className="rounded-xl bg-slate-50 px-3 py-2 dark:bg-slate-950">
+            <div className="glass-accent-chip rounded-xl px-3 py-2">
               <p className="text-[10px] font-semibold text-slate-400 dark:text-slate-500">
                 特徴タグ
               </p>
-              <p className="text-lg font-black tabular-nums text-violet-600 dark:text-violet-400">
+              <p className="glass-accent-text text-lg font-black tabular-nums">
                 {profile.topTags.length}
               </p>
             </div>
@@ -432,9 +431,9 @@ export function SeedRecommendSidebar({
                       ×{entry.count}
                     </span>
                   </div>
-                  <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800">
+                  <div className="glass-progress-track mt-1 h-1.5 overflow-hidden rounded-full">
                     <div
-                      className="h-full rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500"
+                      className="glass-accent-bar h-full rounded-full"
                       style={{
                         width: `${Math.max(
                           6,
@@ -478,7 +477,7 @@ export function SeedRecommendSidebar({
             </div>
           )}
 
-          <div className="mt-3 flex items-center justify-between gap-3 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 dark:border-slate-800 dark:bg-slate-950">
+          <div className="glass-neutral mt-3 flex items-center justify-between gap-3 rounded-xl px-3 py-2.5">
             <div>
               <p className="text-[11px] font-bold text-slate-700 dark:text-slate-200">
                 音声ライブラリ一致ボーナス
@@ -495,12 +494,12 @@ export function SeedRecommendSidebar({
               onClick={onToggleVoicebankBonus}
               className={`relative h-5 w-9 shrink-0 rounded-full transition ${
                 voicebankBonus
-                  ? 'bg-gradient-to-r from-violet-500 to-fuchsia-500'
-                  : 'bg-slate-300 dark:bg-slate-700'
+                  ? 'glass-accent-tab'
+                  : 'bg-slate-300/60 dark:bg-slate-700/60'
               }`}
             >
               <span
-                className={`absolute top-0.5 h-4 w-4 rounded-full bg-white shadow transition-transform ${
+                className={`absolute top-0.5 h-4 w-4 rounded-full bg-white/95 shadow transition-transform ${
                   voicebankBonus ? 'translate-x-[18px]' : 'translate-x-0.5'
                 }`}
               />
@@ -510,8 +509,8 @@ export function SeedRecommendSidebar({
       )}
 
       {seeds.length === 0 && (
-        <div className="flex items-start gap-2 rounded-2xl border tint-border tint-bg px-4 py-3">
-          <ResetIcon className="mt-0.5 h-3.5 w-3.5 shrink-0 text-violet-600 dark:text-violet-400" />
+        <div className="glass-accent-chip flex items-start gap-2 rounded-2xl px-4 py-3">
+          <ResetIcon className="glass-accent-text mt-0.5 h-3.5 w-3.5 shrink-0" />
           <p className="text-[10px] leading-relaxed text-slate-500 dark:text-slate-400">
             シード曲を追加すると、共通タグ（2.5倍重み）・平均BPM・音声ライブラリから類似度を自動計算します。
           </p>
