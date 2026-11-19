@@ -513,7 +513,7 @@ function App() {
 
       <footer className="border-t border-slate-200/70 py-6 dark:border-slate-800/70">
         <div className="mx-auto flex max-w-7xl flex-col gap-1 px-4 text-xs text-slate-500 dark:text-slate-400 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-          <p>VocaDig — Phase 6: 透明感グラスモーフィズム × 8色推しカラーテーマ</p>
+          <p>VocaDig — Phase 7: フェーズ3基準の透明感UI × 8色推しカラーテーマ</p>
           <p>データ出典: VocaDB (https://vocadb.net)</p>
         </div>
       </footer>
