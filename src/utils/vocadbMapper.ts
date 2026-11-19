@@ -2,6 +2,7 @@ import {
   VOICEBANKS,
   VOICEBANK_BY_NAME,
   isStopWordTag,
+  resolveCuratedTag,
 } from '../constants/masterData';
 import type { PVInfo, VocaSong } from '../types/song';
 
@@ -82,6 +83,16 @@ export function normalizeTagName(raw: string): string {
     .replace(/\s+/g, ' ');
 }
 
+/**
+ * VocaDBの英語・日本語タグ名をキュレーション済みタグの代表名へ正規化する。
+ * 対応するキュレーションタグが無い場合は、従来どおり正規化したタグ名を返す。
+ */
+export function canonicalizeTagName(raw: string): string {
+  const normalized = normalizeTagName(raw);
+  const curated = resolveCuratedTag(normalized);
+  return curated ? normalizeTagName(curated.enName) : normalized;
+}
+
 /** 汎用タグを除外し、重複のない正規化済みタグ一覧を返す */
 export function normalizeTags(tags: VocaDbTagContract[] | undefined): string[] {
   const result = new Set<string>();
@@ -90,8 +101,33 @@ export function normalizeTags(tags: VocaDbTagContract[] | undefined): string[] {
     if (!name) continue;
     const normalized = normalizeTagName(name);
     if (!normalized || isStopWordTag(normalized)) continue;
-    result.add(normalized);
+    result.add(canonicalizeTagName(normalized));
   }
+  return [...result];
+}
+
+/** 高速BPMとみなす閾値 */
+export const HIGH_BPM_THRESHOLD = 180;
+
+/**
+ * タグだけでは表現しにくい特徴を、BPMやタグの組み合わせから補完する。
+ * - 高速BPM: BPM 180以上
+ * - ギターロック: ロックかつギター系タグを持つ曲
+ */
+export function deriveFeatureTags(tags: string[], bpm: number | null): string[] {
+  const result = new Set(tags);
+
+  const highBpmTag = resolveCuratedTag('high bpm');
+  if (highBpmTag && bpm !== null && bpm >= HIGH_BPM_THRESHOLD) {
+    result.add(normalizeTagName(highBpmTag.enName));
+  }
+
+  const guitarRockTag = resolveCuratedTag('guitar rock');
+  const hasGuitar = result.has('guitar') || result.has('guitar solo');
+  if (guitarRockTag && result.has('rock') && hasGuitar) {
+    result.add(normalizeTagName(guitarRockTag.enName));
+  }
+
   return [...result];
 }
 
@@ -265,6 +301,7 @@ function normalizeDate(value: string | undefined): string {
 export function normalizeVocaDbSong(raw: VocaDbSongContract): VocaSong {
   const title = raw.name?.trim() || raw.defaultName?.trim() || `Song #${raw.id}`;
   const artistString = raw.artistString?.trim() ?? '';
+  const bpm = normalizeBpm(raw);
 
   return {
     id: raw.id,
@@ -272,7 +309,7 @@ export function normalizeVocaDbSong(raw: VocaDbSongContract): VocaSong {
     artistString,
     producers: extractProducers(raw.artists),
     voicebanks: extractVoicebankIds(raw.artists, artistString),
-    bpm: normalizeBpm(raw),
+    bpm,
     lengthSeconds:
       typeof raw.lengthSeconds === 'number' && raw.lengthSeconds > 0
         ? raw.lengthSeconds
@@ -284,7 +321,7 @@ export function normalizeVocaDbSong(raw: VocaDbSongContract): VocaSong {
         : 0,
     favoritedTimes:
       typeof raw.favoritedTimes === 'number' ? raw.favoritedTimes : 0,
-    tags: normalizeTags(raw.tags),
+    tags: deriveFeatureTags(normalizeTags(raw.tags), bpm),
     pvs: extractPvs(raw.pvs),
     vocadbUrl: `https://vocadb.net/S/${raw.id}`,
   };
